@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const URI = 'mongodb://localhost/recycle-go';
 
-mongoose.connect(URI)
+mongoose.connect(URI, { useNewUrlParser: true } )
   .then(db => console.log('DB Connected'))
   .catch(error => console.error(error));
 
