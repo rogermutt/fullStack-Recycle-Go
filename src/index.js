@@ -12,7 +12,7 @@ app.set('port', process.env.PORT || 3000);
 app.use(express.json());
 
 // Routes
-app.use("/api/items" ,require('./routes/routing.js'));
+app.use("/api/itemsSelected" ,require('./routes/routing.js'));
 
 // Static Files
 app.use(express.static(path.join(__dirname, 'public')));;

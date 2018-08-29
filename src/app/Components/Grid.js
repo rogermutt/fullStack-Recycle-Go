@@ -25,6 +25,8 @@ class Grid extends Component {
 
     render () {
         return (
+          <React.Fragment>
+
           <div className="container">
             <div className="row">
             {arr.map((image)=> <ImageCont key={ranNum()} path={image} /> )}
@@ -37,7 +39,11 @@ class Grid extends Component {
             <div className="row">
             {arr.map((image)=> <ImageCont key={ranNum()} path={image} /> )}
             </div>
-          </div>    
+          </div> 
+
+          <Button /> 
+
+          </React.Fragment> 
             )
         }
 }
