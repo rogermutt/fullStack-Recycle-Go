@@ -8,13 +8,16 @@ router.get("/", async (req, res)=> {
 });    
 
 router.post('/', async (req, res) => {
+
+    const { username, password } = req.body;
+
+    const user = new RegisteredUsers({
+        username: username,
+        password: password
+    });
     
-    const { tasks } = req.body;
-
-    const task = new itemsSelected({tasks});
-    await task.save();
-    res.json({status: 'itemsSelected Saved'});
-
+    await user.save();    
+    res.json({status: 'user Saved'});
 });
     
 
