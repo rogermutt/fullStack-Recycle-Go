@@ -14,9 +14,11 @@
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^3.0.0",
+    "chart.js": "^2.7.2",
     "express": "^4.16.3",
     "mongoose": "^5.1.4",
     "mongoose-unique-validator": "^2.0.1",
+    "react-chartjs-2": "^2.7.4",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1"
   },
