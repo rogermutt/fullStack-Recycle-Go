@@ -31,7 +31,6 @@ class Test extends Component {
     e.preventDefault();
 
     console.log("Before ", this.state.tasks);
-    
   
       fetch('/api/itemsSelected', {
         method: 'POST',
@@ -43,7 +42,7 @@ class Test extends Component {
       })
         .then(res => res.json())
         .then(data => {
-          console.log(data);
+          console.log("Here ",data);
           window.M.toast({html: 'Task Saved'});
           this.setState({tasks: []});
           this.fetchTasks();

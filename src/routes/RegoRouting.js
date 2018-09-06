@@ -4,7 +4,8 @@ const itemsSelected = require("../model/itemsSelected.js")
 const RegisteredUsers = require("../model/RegisteredUsers.js")
 
 router.get("/", async (req, res)=> {   
-    res.json({ status: "Received" });
+    const items = await itemsSelected.find();
+    res.json(items);
 });    
 
 router.post('/', async (req, res) => {
