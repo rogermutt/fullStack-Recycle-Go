@@ -13,6 +13,7 @@ export default class Footer extends Component {
                 <li><Link to="/landing">Landing</Link></li>
                 <li><Link to="/reports">Reports</Link></li>
                 <li><Link to="/select">Select</Link></li>
+                <li><Link to="/calendar">Calendar</Link></li>
               </ul>
               </HashRouter>
             </div>

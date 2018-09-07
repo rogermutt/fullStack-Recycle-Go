@@ -8,15 +8,21 @@ router.get("/", async (req, res)=> {
 });    
 
 router.post('/', async (req, res) => {
-    
+
     console.log("Router receives: ",req.body.itemsSelected);
+
+    var today = new Date(),
+        dd = today.getDate(),
+        mm = today.getMonth()+1,
+        yyyy = today.getFullYear(),
+        date = dd + '/' + mm + '/' + yyyy;
     
     const { itemsSelected } = req.body;
     const newitems = new itemsInDB({
         items: itemsSelected,
-        timestamp: Date(Date.now())
+        timestamp: date
     });
-    
+
     await newitems.save();
     res.json({status: 'itemsSelected Saved'});
 
