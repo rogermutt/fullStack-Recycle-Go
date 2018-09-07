@@ -1,5 +1,65 @@
 import React, { Component } from "react";
 
+
+
+class Testing extends Component {
+
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      itemsSelected: []
+    }
+  }
+
+  clickHandling (e){
+    console.log("Click ",e.target);
+  }
+
+  render () {
+
+    return (
+
+      <React.Fragment>
+  
+      <ul className="collection">
+  
+      <li className="collection-item avatar">
+       <img className="circle" src='images/box.png' alt="" /> 
+        <span className="title">Title</span>
+        <p>First Line</p>
+      </li>
+  
+      <li className="collection-item avatar">
+        <i className="material-icons circle">folder</i>
+        <span className="title">Title</span>
+        <p>First Line</p>
+        <a href="#!" className="secondary-content"><i className="material-icons">grade</i></a>
+      </li>
+  
+      <li className="collection-item avatar">
+        <i className="material-icons circle green">insert_chart</i>
+        <span className="title">Title</span>
+        <p>First Line</p>
+        <a href="#!" className="secondary-content"><i className="material-icons">grade</i></a>
+      </li>
+  
+      <li className="collection-item avatar">
+        <i className="material-icons circle red">play_arrow</i>
+        <span className="title">Title</span>
+        <p>First Line</p>
+        <a href="#!" className="secondary-content"><i className="material-icons">grade</i></a>
+      </li>
+  
+    </ul>
+  
+      </React.Fragment>
+  
+    )
+  }
+};
+
+
 export default class Report extends Component {
 
     constructor(props) {
@@ -21,11 +81,6 @@ export default class Report extends Component {
 
     }
 
-    printIds(){
-
-      
-    }
-
     render () {
         return (
           <React.Fragment>
@@ -45,7 +100,9 @@ export default class Report extends Component {
           </React.Fragment>
 
             ) : (
-              <p>There are no items on the DB</p>
+
+            <p>No elements in the Db</p>
+
             )}
 
           </React.Fragment> 
