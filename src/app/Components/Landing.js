@@ -17,8 +17,8 @@ export default class Landing extends Component {
       fetch('/api/itemsSelected')
       .then(res => res.json())
       .then(data => {
-        this.setState({itemsSelected: data});
-        
+        this.setState({itemsSelected: data});  
+               
       });
 
     }
@@ -27,23 +27,22 @@ export default class Landing extends Component {
         return (
           <React.Fragment>
 
-            <OceanSVG/>
+            { console.log("items ",this.state.itemsSelected.length) }
 
-           {/* <img className="responsive-img" src="images/box.png" /> */}
+            <OceanSVG itemsSelected={this.state.itemsSelected.length} />
 
           {/* If there are items on the DB met print them all inside React frag 
           otherwise print <p> w/ message  */}
-
           <div className="row">
 
-                    {this.state.itemsSelected.length > 0 ? (  
-
-                    <React.Fragment>          
+                    {this.state.itemsSelected.length > 0 ? ( 
+                      
+                    <div className="row">
 
                       <p> There are {this.state.itemsSelected.length} items on the DB</p> 
                       <p> Busiest day is <strong> {this.state.itemsSelected[0]._id} </strong> </p> 
 
-                    </React.Fragment>
+                    </div>
 
                       ) : (
 
