@@ -33,7 +33,7 @@ export default class Grid extends Component {
 
     submitItems (e) {
 
-      console.log("submitItems"); 
+      console.log("items Submitted ", this.state.itemsSelected); 
 
           fetch('/api/itemsSelected', {
             method: 'POST',
@@ -45,7 +45,7 @@ export default class Grid extends Component {
           })
             .then(res => res.json())
             .then(data => {
-              console.log("Here ",data);
+              console.log("Router responded ", data);
               this.setState({itemsSelected: []});
           
             })

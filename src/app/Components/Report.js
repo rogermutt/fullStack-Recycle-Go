@@ -75,7 +75,10 @@ export default class Report extends Component {
       fetch('/api/itemsSelected')
       .then(res => res.json())
       .then(data => {
-        this.setState({itemsSelected: data});
+
+        let itemsSelected = [];
+        data.map(el => el.items).map(array => array.map( el => itemsSelected.push(el)));
+        this.setState({itemsSelected});
         
       });
 

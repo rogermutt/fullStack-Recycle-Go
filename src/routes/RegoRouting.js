@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const itemsSelected = require("../model/itemsSelected.js")
+const itemsSelected = require("../model/itemsInDB.js")
 const RegisteredUsers = require("../model/RegisteredUsers.js")
 
 router.get("/", async (req, res)=> {   
