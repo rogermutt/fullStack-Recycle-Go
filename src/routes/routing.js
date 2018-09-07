@@ -10,10 +10,11 @@ router.get("/", async (req, res)=> {
 
 router.post('/', async (req, res) => {
     
-    const { tasks } = req.body;
-
-    const task = new itemsSelected({tasks});
-    await task.save();
+    console.log("arr",req.body.itemsSelected);
+    
+    const { items } = req.body;
+    const newitems = new itemsSelected({items});
+    await newitems.save();
     res.json({status: 'itemsSelected Saved'});
 
 });

@@ -6,27 +6,33 @@ export default class Report extends Component {
       super(props)
 
       this.state = {
-        arr: null
+        itemsSelected: []
       }
     }
 
     componentDidMount(){
-      console.log("hello"); 
 
-    fetch('/api/itemsSelected')
+      fetch('/api/itemsSelected')
       .then(res => res.json())
       .then(data => {
-        console.log("yep ",data);
-         
+        this.setState({itemsSelected: data});
+        
       });
 
+    }
+
+    printIds(){
+      
     }
 
     render () {
         return (
           <React.Fragment>
-          <p>Hello</p>
 
+             {this.state.itemsSelected.map(el=>el._id).map(id =>
+             <p>{id}</p>
+             )}
+ 
           </React.Fragment> 
             )
         }
