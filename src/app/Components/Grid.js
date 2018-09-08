@@ -5,8 +5,30 @@ const arr = ["box.png", "plastic-bag.png", "plastic-bottle.png"];
 
 const ranNum =()=> Math.floor((Math.random() * 200) + 1);
 
+class Roger extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {addClass: false}
+  }
+  toggle() {
+    this.setState({addClass: !this.state.addClass});
+  }
+  render() {
+    let boxClass = ["col", "s4"];
+    if(this.state.addClass) {
+      boxClass.push('otherclass');
+    }
+    return(
+        <div className={boxClass.join(' ')}  onClick={this.toggle.bind(this)}>{this.state.addClass ? "Remove a class" : "Add a class (click the box)"}
+        <br />
+        Read the tutorial 
+        <a href="http://www.automationfuel.com" target="_blank">here</a>.</div>       
+    );
+  }
+}
+
 const ImageCont = props => (
-      <div className="col s4"> 
+      <div className="col s4 otherclass"> 
         <a> <img className="responsive-img" src={`/images/${props.path}`} onClick={props.click} />  </a>
       </div>        
   );
@@ -25,6 +47,7 @@ export default class Grid extends Component {
     }
 
     clickHandler(e) {
+  
       console.log("clickHandler");  
       let list = this.state.itemsSelected;
       list.push(e.target.src);
@@ -59,7 +82,9 @@ export default class Grid extends Component {
 
           <div className="container">
             <div className="row">
-            {arr.map((image)=> <ImageCont click={this.clickHandler} key={ranNum()} path={image} /> )}
+            <Roger/>
+            <Roger/>
+            <Roger/>
             </div>
       
             <div className="row">

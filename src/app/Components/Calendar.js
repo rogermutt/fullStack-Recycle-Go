@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import Calendar from "react-big-calendar";
 import moment from "moment";
-import "react-big-calendar/lib/css/react-big-calendar.css";
+import "/Users/Roger/fullstack-go/node_modules/react-big-calendar/lib/css/react-big-calendar.css";
+
+import "/Users/Roger/fullstack-go/src/public/js/style.css";
 
 Calendar.setLocalizer(Calendar.momentLocalizer(moment));
 
@@ -54,7 +56,7 @@ export default class CalendarComponent extends Component {
           defaultDate={new Date()}
           defaultView="month"
           events={this.state.events}
-          style={{ height: "65vh" }}
+          style={{ height: "200vh" }}
         />
       </div>
     );
