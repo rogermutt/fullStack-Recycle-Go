@@ -1,37 +1,10 @@
 import React, { Component } from "react";
 import Button from "./Button";
+import IconGrid from "./IconGrid";
 
 const arr = ["box.png", "plastic-bag.png", "plastic-bottle.png"];
 
 const ranNum =()=> Math.floor((Math.random() * 200) + 1);
-
-class Roger extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {addClass: false}
-  }
-  toggle() {
-    this.setState({addClass: !this.state.addClass});
-  }
-  render() {
-    let boxClass = ["col", "s4"];
-    if(this.state.addClass) {
-      boxClass.push('otherclass');
-    }
-    return(
-        <div className={boxClass.join(' ')}  onClick={this.toggle.bind(this)}>{this.state.addClass ? "Remove a class" : "Add a class (click the box)"}
-        <br />
-        Read the tutorial 
-        <a href="http://www.automationfuel.com" target="_blank">here</a>.</div>       
-    );
-  }
-}
-
-const ImageCont = props => (
-      <div className="col s4 otherclass"> 
-        <a> <img className="responsive-img" src={`/images/${props.path}`} onClick={props.click} />  </a>
-      </div>        
-  );
 
 export default class Grid extends Component {
 
@@ -48,10 +21,10 @@ export default class Grid extends Component {
 
     clickHandler(e) {
   
-      console.log("clickHandler");  
-      let list = this.state.itemsSelected;
-      list.push(e.target.src);
-      this.setState({itemsSelected: list});
+      console.log("clickHandler ", e.target);  
+      // let list = this.state.itemsSelected;
+      // list.push(e.target.src);
+      // this.setState({itemsSelected: list});
     }
 
     submitItems (e) {
@@ -75,30 +48,31 @@ export default class Grid extends Component {
             .catch(err => console.error(err));
       }
 
-
     render () {
         return (
           <React.Fragment>
 
           <div className="container">
-            <div className="row">
-            <Roger/>
-            <Roger/>
-            <Roger/>
+            <div className="row" onClick={this.clickHandler}>
+            {arr.map((image) => <IconGrid key={ranNum()} path={`/images/${image}`} /> )}
             </div>
       
             <div className="row">
-            {arr.map((image)=> <ImageCont key={ranNum()} path={image} /> )}
+            {arr.map((image) => <IconGrid key={ranNum()} path={`/images/${image}`} /> )}
             </div>
       
             <div className="row">
-            {arr.map((image)=> <ImageCont key={ranNum()} path={image} /> )}
+            {arr.map((image) => <IconGrid key={ranNum()} path={`/images/${image}`} /> )}
             </div>
+
+            <div className="row">
+            <Button clickHandler={this.submitItems} /> 
+            </div>
+
           </div> 
 
-          <Button clickHandler={this.submitItems} /> 
-
           </React.Fragment> 
+
             )
         }
 }
