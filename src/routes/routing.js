@@ -11,11 +11,8 @@ router.post('/', async (req, res) => {
 
     console.log("Router receives: ",req.body.itemsSelected);
 
-    var today = new Date(),
-        dd = today.getDate(),
-        mm = today.getMonth()+1,
-        yyyy = today.getFullYear(),
-        date = dd + '/' + mm + '/' + yyyy;
+    var date = new Date();
+    var dateString = date.toString();
     
     const { itemsSelected } = req.body;
     const newitems = new itemsInDB({

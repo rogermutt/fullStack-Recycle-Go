@@ -11,14 +11,26 @@ export default class CalendarComponent extends Component {
     super(props)
 
     this.state = {
-      events: [
-        {
-          start: new Date(),
-          end: new Date(),
-          title: "4 items"
-        }
-      ]
+      events: []
     }  
+  }
+
+  updateStateEvents (data) {
+
+    let newEventsList = [];
+
+      data.map(el => {
+
+        let obj = new Object();
+            obj.start = new Date (el.timestamp);
+            obj.end = new Date (el.timestamp);  
+            obj.title = `${el.items.length} item(s)`;  
+
+            newEventsList.push(obj);   
+      });
+    
+    return newEventsList;
+    
   }
 
   componentDidMount(){
@@ -27,9 +39,9 @@ export default class CalendarComponent extends Component {
     .then(res => res.json())
     .then(data => {
 
-      // let itemsSelected = [];
-      // data.map(el => el.items).map(array => array.map( el => itemsSelected.push(el)));
-      // this.setState({itemsSelected});
+      let newList = this.updateStateEvents(data);
+
+      this.setState({events: newList});
       
     });
 
@@ -42,7 +54,7 @@ export default class CalendarComponent extends Component {
           defaultDate={new Date()}
           defaultView="month"
           events={this.state.events}
-          style={{ height: "60vh" }}
+          style={{ height: "65vh" }}
         />
       </div>
     );
