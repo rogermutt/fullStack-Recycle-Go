@@ -8,7 +8,8 @@ export default class Landing extends Component {
       super(props)
 
       this.state = {
-        itemsSelected: []
+        itemsSelected: [],
+        dayOfWeek: ""
       }
     }
 
@@ -21,41 +22,98 @@ export default class Landing extends Component {
         let itemsSelected = [];
         data.map(el => el.items).map(array => array.map( el => itemsSelected.push(el)));
         this.setState({itemsSelected});
+
+        let arr = data.map(el => el.timestamp);
+
+        let roger = this.returnMostCommonDay( arr )
         
+        this.setState({
+          dayOfWeek: roger
+        });  
+        console.log(this.state.dayOfWeek);
+        
+      
       });
 
+    }
+
+    returnMostCommonDay (array) {
+
+        const convertToDay = stringDate => {
+            switch (stringDate) {
+          case 1: return "Monday";
+              break;
+          case 2: return "Tuesday";
+              break;
+          case 3: return "Wednesday";
+              break;
+          case 4: return "Thursday";
+              break;
+          case 5: return "Friday";
+              break;
+          case 6: return "Saturday";
+              break;
+          case 7: return "Sunday";
+              break;
+          default: return "Invalid day";
+              break;  
+            }
+        }
+    
+        var obj = {}, mostFreq = 0, which = [];
+    
+        array
+        .map(rawDate => {
+    
+        let date = new Date (rawDate);
+        let dayOfWeek = date.getDay();
+        return convertToDay(dayOfWeek)
+        })
+        
+        .forEach(ea => {
+        if (!obj[ea]) {
+            obj[ea] = 1;
+        } else {
+            obj[ea]++;
+        }
+        
+        if (obj[ea] > mostFreq) {
+            mostFreq = obj[ea];
+            which = [ea];
+        } else if (obj[ea] === mostFreq) {
+            which.push(ea);
+        }
+    
+        });
+        return which.length > 1 ? which[0] : which;
     }
 
     render () {
         return (
           <React.Fragment>
 
-            { console.log("items ",this.state.itemsSelected.length) }
-
             <OceanSVG itemsSelected={this.state.itemsSelected.length} />
 
-          {/* If there are items on the DB met print them all inside React frag 
-          otherwise print <p> w/ message  */}
           <div className="row">
 
-                    {this.state.itemsSelected.length > 0 ? ( 
+              {this.state.itemsSelected.length > 0 ? ( 
                       
-                    <div className="row">
+              <div className="row">
 
-                      <p> There are {this.state.itemsSelected.length} items on the DB</p> 
-                      <p> Busiest day is <strong> {this.state.itemsSelected[0]._id} </strong> </p> 
+              <p> There are {this.state.itemsSelected.length} items on the DB</p> 
+              <p> Busiest day is <strong> {this.state.dayOfWeek} </strong> </p> 
 
-                    </div>
+              </div>
 
-                      ) : (
+              ) : (
+          
+              <p>No elements in the Db</p>
 
-                      <p>No elements in the Db</p>
+              )}
 
-                      )}
-
-                      <Button text={"Reports"} /> 
-                      <Button text={"Add Items"} /> 
-                      <Button text={""} /> 
+              <Button text={"Reports"} /> 
+              <Button text={"Add Items"} /> 
+              <Button text={""} /> 
           
           </div>
 

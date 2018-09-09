@@ -23,8 +23,10 @@ export default class Grid extends Component {
       let list = this.state.itemsSelected;
 
       let idx = list.indexOf(target);
-  
-      idx === -1 ?  list.push(target)  : list.splice(list.indexOf(target), 1) ;
+
+      idx === -1 ?  
+      list.push(target)  : 
+      list.splice( list.indexOf(target), 1) ;
 
       this.setState({
         itemsSelected: list

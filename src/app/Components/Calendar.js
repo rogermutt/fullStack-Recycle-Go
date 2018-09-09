@@ -56,7 +56,7 @@ export default class CalendarComponent extends Component {
           defaultDate={new Date()}
           defaultView="month"
           events={this.state.events}
-          style={{ height: "200vh" }}
+          style={{ height: "65vh" }}
         />
       </div>
     );

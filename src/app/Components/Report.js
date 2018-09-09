@@ -1,65 +1,5 @@
 import React, { Component } from "react";
 
-
-
-class Testing extends Component {
-
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      itemsSelected: []
-    }
-  }
-
-  clickHandling (e){
-    console.log("Click ",e.target);
-  }
-
-  render () {
-
-    return (
-
-      <React.Fragment>
-  
-      <ul className="collection">
-  
-      <li className="collection-item avatar">
-       <img className="circle" src='images/box.png' alt="" /> 
-        <span className="title">Title</span>
-        <p>First Line</p>
-      </li>
-  
-      <li className="collection-item avatar">
-        <i className="material-icons circle">folder</i>
-        <span className="title">Title</span>
-        <p>First Line</p>
-        <a href="#!" className="secondary-content"><i className="material-icons">grade</i></a>
-      </li>
-  
-      <li className="collection-item avatar">
-        <i className="material-icons circle green">insert_chart</i>
-        <span className="title">Title</span>
-        <p>First Line</p>
-        <a href="#!" className="secondary-content"><i className="material-icons">grade</i></a>
-      </li>
-  
-      <li className="collection-item avatar">
-        <i className="material-icons circle red">play_arrow</i>
-        <span className="title">Title</span>
-        <p>First Line</p>
-        <a href="#!" className="secondary-content"><i className="material-icons">grade</i></a>
-      </li>
-  
-    </ul>
-  
-      </React.Fragment>
-  
-    )
-  }
-};
-
-
 export default class Report extends Component {
 
     constructor(props) {
@@ -76,12 +16,66 @@ export default class Report extends Component {
       .then(res => res.json())
       .then(data => {
 
+
         let itemsSelected = [];
         data.map(el => el.items).map(array => array.map( el => itemsSelected.push(el)));
         this.setState({itemsSelected});
+
+        console.log( this.state.itemsSelected );
         
       });
 
+    }
+
+    returnMostCommonDay (array) {
+
+      const convertToDay = stringDate => {
+          switch (stringDate) {
+        case 1: return "Monday";
+            break;
+        case 2: return "Tuesday";
+            break;
+        case 3: return "Wednesday";
+            break;
+        case 4: return "Thursday";
+            break;
+        case 5: return "Friday";
+            break;
+        case 6: return "Saturday";
+            break;
+        case 7: return "Sunday";
+            break;
+        default: return "Invalid day";
+            break;  
+          }
+      }
+  
+      var obj = {}, mostFreq = 0, which = [];
+  
+      array
+      .map(rawDate => {
+  
+      let date = new Date (rawDate);
+      let dayOfWeek = date.getDay();
+      return convertToDay(dayOfWeek)
+      })
+      
+      .forEach(ea => {
+      if (!obj[ea]) {
+          obj[ea] = 1;
+      } else {
+          obj[ea]++;
+      }
+      
+      if (obj[ea] > mostFreq) {
+          mostFreq = obj[ea];
+          which = [ea];
+      } else if (obj[ea] === mostFreq) {
+          which.push(ea);
+      }
+  
+      });
+      return which.length > 1 ? which[0] : which;
     }
 
     render () {
@@ -97,7 +91,7 @@ export default class Report extends Component {
             
            <h3> There are {this.state.itemsSelected.length} items on the DB</h3> 
 
-          {this.state.itemsSelected.map(el=>el._id).map((id, idx) =>
+          {this.state.itemsSelected.map((id, idx) =>
           <p key={idx}>{id}</p>
           )} 
           </React.Fragment>
