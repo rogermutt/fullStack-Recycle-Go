@@ -22,7 +22,7 @@ export default class CalendarComponent extends Component {
     let newEventsList = [];
 
       data.map(el => {
-
+        
         let obj = new Object();
             obj.start = new Date (el.timestamp);
             obj.end = new Date (el.timestamp);  
@@ -30,7 +30,7 @@ export default class CalendarComponent extends Component {
 
             newEventsList.push(obj);   
       });
-    
+      
     return newEventsList;
     
   }
@@ -42,9 +42,9 @@ export default class CalendarComponent extends Component {
     .then(data => {
 
       let newList = this.updateStateEvents(data);
-
-      this.setState({events: newList});
       
+      this.setState({events: newList});
+
     });
 
   }

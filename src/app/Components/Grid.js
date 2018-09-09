@@ -4,6 +4,14 @@ import IconGrid from "./IconGrid";
 
 const arr = ["box.png", "plastic-bag.png", "plastic-bottle.png", "box.png", "plastic-bag.png", "plastic-bottle.png", "box.png", "plastic-bag.png", "plastic-bottle.png"];
 
+const itemsList = 
+["Plastic Bag", "Plastic Bottle",
+ "Food Container", "Coffee Cup", 
+ "Food Wrapper", "Cardboard",
+ "Drink Can", "Food Can",
+ "Plastic Cutlery"
+];
+
 export default class Grid extends Component {
 
     constructor(props) {
@@ -63,7 +71,7 @@ export default class Grid extends Component {
 
           <div className="container">
             <div className="row" >
-            {arr.map((image, index) => <IconGrid key={index} idx={index} path={`/images/${image}`} test={this.clickHandler} /> )}
+            {arr.map((image, index) => <IconGrid key={index} idx={ itemsList[index]} path={`/images/${image}`} test={this.clickHandler} /> )}
             </div>
 
             <div className="row">
