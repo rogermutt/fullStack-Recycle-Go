@@ -2,9 +2,7 @@ import React, { Component } from "react";
 import Button from "./Button";
 import IconGrid from "./IconGrid";
 
-const arr = ["box.png", "plastic-bag.png", "plastic-bottle.png"];
-
-const ranNum =()=> Math.floor((Math.random() * 200) + 1);
+const arr = ["box.png", "plastic-bag.png", "plastic-bottle.png", "box.png", "plastic-bag.png", "plastic-bottle.png", "box.png", "plastic-bag.png", "plastic-bottle.png"];
 
 export default class Grid extends Component {
 
@@ -20,11 +18,20 @@ export default class Grid extends Component {
     }
 
     clickHandler(e) {
+      
+      let target = e.target.dataset.idx;
+      let list = this.state.itemsSelected;
+
+      let idx = list.indexOf(target);
   
-      console.log("clickHandler ", e.target);  
-      // let list = this.state.itemsSelected;
-      // list.push(e.target.src);
-      // this.setState({itemsSelected: list});
+      idx === -1 ?  list.push(target)  : list.splice(list.indexOf(target), 1) ;
+
+      this.setState({
+        itemsSelected: list
+      });
+
+      console.log("state ", this.state.itemsSelected);  
+      
     }
 
     submitItems (e) {
@@ -53,16 +60,8 @@ export default class Grid extends Component {
           <React.Fragment>
 
           <div className="container">
-            <div className="row" onClick={this.clickHandler}>
-            {arr.map((image) => <IconGrid key={ranNum()} path={`/images/${image}`} /> )}
-            </div>
-      
-            <div className="row">
-            {arr.map((image) => <IconGrid key={ranNum()} path={`/images/${image}`} /> )}
-            </div>
-      
-            <div className="row">
-            {arr.map((image) => <IconGrid key={ranNum()} path={`/images/${image}`} /> )}
+            <div className="row" >
+            {arr.map((image, index) => <IconGrid key={index} idx={index} path={`/images/${image}`} test={this.clickHandler} /> )}
             </div>
 
             <div className="row">
