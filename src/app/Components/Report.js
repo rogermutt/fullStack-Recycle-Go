@@ -1,7 +1,10 @@
 import React, { Component } from "react";
-import Chart from "./Chart";
+import Doughnut from "./DoughnutChart";
+import Line from "./LineChart";
 
 const fakeRegoDate = new Date("2018-08-02T08:59:50.337Z");
+
+
 
 export default class Report extends Component {
 
@@ -13,12 +16,19 @@ export default class Report extends Component {
         mostCommonItem: "",
         mostCommonDay: "",
         dailyAverage: 0,
-        itemsSelectedOrganized: {}
+        chartData: [],
+        chartLabels: []
       }
     }
 
-
     componentDidMount(){
+
+      fetch('/api/last7Days')
+      .then(res => res.json())
+      .then(data => {
+          console.log("7 days ", data);
+        
+      })  
 
       fetch('/api/itemsSelected')
       .then(res => res.json())
@@ -26,33 +36,75 @@ export default class Report extends Component {
 
         let itemsSelected = [];
         data.map(el => el.items).map(array => array.map( el => itemsSelected.push(el)));
-        this.setState({itemsSelected});
-
-        this.setState({
-          mostCommonItem: this.returnMostCommonItem( this.state.itemsSelected )
-        });  
-
+        
         let timeStampArray = data.map(el => el.timestamp);
 
-        this.setState({
-          mostCommonDay: this.returnMostCommonItem ( this.returnMostCommonDay( timeStampArray ) )
-        });     
-        
         let len = data.length;
-        
-        this.setState({
-          dailyAverage: this.calculateDailyAverage(len , data[len-1].timestamp )
-        });  
 
         var itemsSelectedOrganized = {};
-        itemsSelected.forEach(el => itemsSelectedOrganized[el] = ( itemsSelectedOrganized[el] || 0) + 1 );
-
-        this.setState({ itemsSelectedOrganized });  
-   
-      
-      console.log( this.state.itemsSelectedOrganized  );
+        itemsSelected.forEach(el => itemsSelectedOrganized[el] = ( itemsSelectedOrganized[el] || 0) + 1 );      
         
+        var date = new Date();
+        var last = new Date(date.getTime() - (7 * 24 * 60 * 60 * 1000));
+        var day =last.getDate();
+        var month=last.getMonth()+1;
+
+        var test = timeStampArray.map( stamp => new Date(stamp).getMonth()+1) ;
+
+            // console.log("time ", test );
+            
+        this.setState({
+          itemsSelected: itemsSelected,
+          mostCommonItem: this.returnMostCommonItem( itemsSelected ),
+          mostCommonDay: this.returnMostCommonItem ( this.returnMostCommonDay( timeStampArray ) ),
+          dailyAverage: this.calculateDailyAverage(len , data[len-1].timestamp ),
+          itemsSelectedOrganized: itemsSelectedOrganized,
+          chartData: Object.values(itemsSelectedOrganized),
+          chartLabels: Object.keys(itemsSelectedOrganized)
+        });
+
       });
+    }
+
+    LoadDoughnutData (){
+
+      const data = {
+        labels: this.state.chartLabels,
+        datasets: [{
+            data: this.state.chartData,
+            backgroundColor: [
+            '#FF6384',
+            '#36A2EB',
+            '#FFCE56',
+            '#FF6384',
+            '#36A2EB',
+            '#FFCE56',
+            '#FF6384',
+            '#36A2EB',
+            '#FFCE56',
+            '#FF6384',
+            '#36A2EB',
+            '#FFCE56'
+            ],
+            hoverBackgroundColor: [
+            '#FF6384',
+            '#36A2EB',
+            '#FFCE56',
+            '#FF6384',
+            '#36A2EB',
+            '#FFCE56',
+            '#FF6384',
+            '#36A2EB',
+            '#FFCE56',
+            '#FF6384',
+            '#36A2EB',
+            '#FFCE56'
+            ]
+        }]
+      }
+
+      return data;
+
     }
 
     calculateDailyAverage(totalItems, lastDate) {
@@ -116,6 +168,7 @@ export default class Report extends Component {
 
     }
 
+
     render () {
         return (
           <div className="row">
@@ -134,9 +187,14 @@ export default class Report extends Component {
               )}
 
               <div className="row">
-                <h4>Your activity at glance</h4>
-                <Chart data={[33, 33, 33]} labels={["bottle", "cup", "bag"]}/>
+                <h4>Your activity at glance</h4>        
+                <Doughnut data={this.LoadDoughnutData() } />
               </div>    
+
+                <div className="row">
+                    <h4>Your activity at glance</h4>
+                    <Line />
+                </div>  
 
           </div>         
           )
