@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Chart from "./Chart";
 
 const fakeRegoDate = new Date("2018-08-02T08:59:50.337Z");
 
@@ -11,7 +12,8 @@ export default class Report extends Component {
         itemsSelected: [],
         mostCommonItem: "",
         mostCommonDay: "",
-        dailyAverage: 0
+        dailyAverage: 0,
+        itemsSelectedOrganized: {}
       }
     }
 
@@ -41,6 +43,14 @@ export default class Report extends Component {
         this.setState({
           dailyAverage: this.calculateDailyAverage(len , data[len-1].timestamp )
         });  
+
+        var itemsSelectedOrganized = {};
+        itemsSelected.forEach(el => itemsSelectedOrganized[el] = ( itemsSelectedOrganized[el] || 0) + 1 );
+
+        this.setState({ itemsSelectedOrganized });  
+   
+      
+      console.log( this.state.itemsSelectedOrganized  );
         
       });
     }
@@ -122,6 +132,12 @@ export default class Report extends Component {
               ) : (
               <p>No elements in the DB</p>
               )}
+
+              <div className="row">
+                <h4>Your activity at glance</h4>
+                <Chart data={[33, 33, 33]} labels={["bottle", "cup", "bag"]}/>
+              </div>    
+
           </div>         
           )
         }

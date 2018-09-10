@@ -4,13 +4,7 @@ import IconGrid from "./IconGrid";
 
 const arr = ["box.png", "can food.png", "cleaning.png", "coffee.png", "crisps.png", "cutlery.png", "plastic-bag.png", "plastic-bottle.png", "soft drink.png"];
 
-const itemsList = 
-["Plastic Bag", "Plastic Bottle",
- "Food Container", "Coffee Cup", 
- "Food Wrapper", "Cardboard",
- "Drink Can", "Food Can",
- "Plastic Cutlery"
-];
+const itemsList = arr.map( el => el.replace(".png", ""));
 
 export default class Grid extends Component {
 
