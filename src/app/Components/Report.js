@@ -238,13 +238,30 @@ export default class Report extends Component {
           <div className="row">
               {this.state.itemsSelected.length > 0 ? (  
                 
-               <React.Fragment>
-                  <h4>Highlights of your activity</h4>
-                  <li>You have used <strong>{this.state.itemsSelected.length}</strong> items since your started.</li>
-                  <li>Your most commonly used item is <strong>{this.state.mostCommonItem}</strong>.</li>
-                  <li>You pollute the most on <strong>{this.state.mostCommonDay}s</strong>.</li>
-                  <li>On average you throw away <strong>{this.state.dailyAverage} items</strong> per day</li>
-               </React.Fragment> 
+                <div className="row">
+                <h4>Highlights of your activity</h4>
+
+                <div className="col s12 m6 l3">
+                <h4> <strong>{this.state.itemsSelected.length}</strong> </h4>
+                <span>Items you used since your started.</span>
+                </div>
+
+                <div className="col s12 m6 l3">
+                <h4> <strong>{this.state.mostCommonItem}</strong> </h4>
+                <span>Your most commonly used item.</span>
+                </div>     
+
+                <div className="col s12 m6 l3">
+                <h4>  <strong>{this.state.mostCommonDay}s.</strong> </h4>
+                <span>The day you pollute the most.</span>
+                </div>     
+
+                <div className="col s12 m6 l3">
+                <h4>  <strong>{this.state.dailyAverage}</strong> </h4>
+                <span>Average items you throw away per day.</span>
+                </div>   
+                  
+                </div>
 
               ) : (
               <p>No elements in the DB</p>
@@ -252,12 +269,12 @@ export default class Report extends Component {
 
             <div className="row">
                 <h4>Your activity at glance</h4>        
-                <Doughnut data={ this.LoadDoughnutData() } />
+                <Doughnut data={this.LoadDoughnutData()} />
             </div>    
             
             <div className="row">
                 <h4>Your activity at glance</h4>
-                <Line data={ this.LoadLineChartData() } />
+                <Line data={this.LoadLineChartData()} />
             </div>  
 
           </div>         
