@@ -5,12 +5,16 @@ const itemsSelected = require("../model/itemsInDB.js");
 router.get("/", async (_, res)=> {  
 
     let _7daysAgo = await new Date ();
+    let _14daysAgo = await new Date ();
     
     await _7daysAgo.setDate(_7daysAgo.getDate() - 7);
-    
-    const last7Days = await itemsSelected.find({ "timestamp" :{ $gte: _7daysAgo }})
+    await _14daysAgo.setDate(_14daysAgo.getDate() - 14);
 
-    res.json(last7Days);
+    const _7to14Days = await itemsSelected.find({ 
+        $and: [ { timestamp: { $gte: _14daysAgo } }, { timestamp: { $lt: _7daysAgo } } ] 
+    });
+
+    res.json(_7to14Days);
 });    
 
 module.exports = router;

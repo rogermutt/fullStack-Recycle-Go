@@ -4,8 +4,6 @@ import Line from "./LineChart";
 
 const fakeRegoDate = new Date("2018-08-02T08:59:50.337Z");
 
-
-
 export default class Report extends Component {
 
     constructor(props) {
@@ -17,22 +15,71 @@ export default class Report extends Component {
         mostCommonDay: "",
         dailyAverage: 0,
         chartData: [],
-        chartLabels: []
+        chartLabels: [],
+        last7DaysValues: {},
+        last14DaysValues: {}
       }
     }
 
     componentDidMount(){
 
-      fetch('/api/last7Days')
-      .then(res => res.json())
-      .then(data => {
-          console.log("7 days ", data);
-        
-      })  
+    fetch('/api/7to14Days')
+    .then(res => res.json())
+    .then(data => {
 
-      fetch('/api/itemsSelected')
-      .then(res => res.json())
-      .then(data => {
+        let timeStampArray = data
+        .map(el => el.timestamp)
+        .map(rawDate => { 
+
+            let date = new Date (rawDate); 
+            let dayOfWeek = date.getDay(); 
+            
+            return dayOfWeek;
+            
+          });
+
+        var last14DaysValues = {};
+
+        timeStampArray
+        .map(el => this.convertToDay(el))
+        .forEach(el => last14DaysValues[el] = ( last14DaysValues[el] || 0) + 1 ); 
+
+        this.setState({ last14DaysValues });
+
+        console.log("14 days ",this.state.last14DaysValues);  
+        
+          
+    }); 
+
+    fetch('/api/last7Days')
+    .then(res => res.json())
+    .then(data => {
+          
+        let timeStampArray = data
+        .map(el => el.timestamp)
+        .map(rawDate => { 
+
+            let date = new Date (rawDate); 
+            let dayOfWeek = date.getDay(); 
+            
+            return dayOfWeek;
+            
+          });
+
+        var last7DaysValues = {};
+
+        timeStampArray
+        .map(el => this.convertToDay(el))
+        .forEach(el => last7DaysValues[el] = ( last7DaysValues[el] || 0) + 1 ); 
+
+        this.setState({ last7DaysValues });
+
+        console.log("7 days ",this.state.last7DaysValues);  
+    });
+
+    fetch('/api/itemsSelected')
+    .then(res => res.json())
+    .then(data => {
 
         let itemsSelected = [];
         data.map(el => el.items).map(array => array.map( el => itemsSelected.push(el)));
@@ -43,27 +90,19 @@ export default class Report extends Component {
 
         var itemsSelectedOrganized = {};
         itemsSelected.forEach(el => itemsSelectedOrganized[el] = ( itemsSelectedOrganized[el] || 0) + 1 );      
-        
-        var date = new Date();
-        var last = new Date(date.getTime() - (7 * 24 * 60 * 60 * 1000));
-        var day =last.getDate();
-        var month=last.getMonth()+1;
-
-        var test = timeStampArray.map( stamp => new Date(stamp).getMonth()+1) ;
-
-            // console.log("time ", test );
             
         this.setState({
           itemsSelected: itemsSelected,
           mostCommonItem: this.returnMostCommonItem( itemsSelected ),
-          mostCommonDay: this.returnMostCommonItem ( this.returnMostCommonDay( timeStampArray ) ),
+          mostCommonDay: this.returnMostCommonItem ( this.convertToDayOfWeek( timeStampArray ) ),
           dailyAverage: this.calculateDailyAverage(len , data[len-1].timestamp ),
           itemsSelectedOrganized: itemsSelectedOrganized,
           chartData: Object.values(itemsSelectedOrganized),
           chartLabels: Object.keys(itemsSelectedOrganized)
-        });
+        }); 
 
       });
+
     }
 
     LoadDoughnutData (){
@@ -107,6 +146,35 @@ export default class Report extends Component {
 
     }
 
+    LoadLineChartData (){
+
+    const data = {
+        labels: ['Mon','Tue','Wed','Thur','Fri','Sat','Sun'],
+        datasets: [
+          {
+            label: 'Current Week',
+            backgroundColor: 'rgba(255, 99, 132, 1)',
+            borderColor: 'rgba(255, 99, 132, 1)',
+            borderWidth: 1,
+            hoverBackgroundColor: 'rgba(255, 99, 132, 1)',
+            hoverBorderColor: 'rgba(255, 99, 132, 1)',
+            data: Object.values(this.state.last7DaysValues)
+          },
+          {
+            label: 'Previous Week',
+            backgroundColor: 'rgba(54, 162, 235, 1)',
+            borderColor: 'rgba(54, 162, 235, 1)',
+            borderWidth: 1,
+            hoverBackgroundColor: 'rgba(54, 162, 235, 1)',
+            hoverBorderColor: 'rgba(54, 162, 235, 1)',
+            data: Object.values(this.state.last14DaysValues)
+          }
+        ]
+      };
+
+      return data;
+    } 
+
     calculateDailyAverage(totalItems, lastDate) {
       let first_Day = fakeRegoDate,
           end_Date = new Date(lastDate),
@@ -137,37 +205,33 @@ export default class Report extends Component {
         return mostCommon.length > 1 ? mostCommon[0] : mostCommon;
     };
 
-    returnMostCommonDay (array) {
-      
-      const convertToDay = stringDate => { 
-          switch (stringDate) {
-        case 1: return "Monday";
-            break;
-        case 2: return "Tuesday";
-            break;
-        case 3: return "Wednesday";
-            break;
-        case 4: return "Thursday";
-            break;
-        case 5: return "Friday";
-            break;
-        case 6: return "Saturday";
-            break;
-        case 0: return "Sunday";
-            break;
-        default: return "Invalid day";
-            break;  
-          }
-      }
-
-      return array.map(rawDate => { 
-        let date = new Date (rawDate); 
-        let dayOfWeek = date.getDay(); 
-          return convertToDay(dayOfWeek)
-      });
-
+    convertToDay (element) {   
+            switch (element) {
+          case 1: return "Monday";
+              break;
+          case 2: return "Tuesday";
+              break;
+          case 3: return "Wednesday";
+              break;
+          case 4: return "Thursday";
+              break;
+          case 5: return "Friday";
+              break;
+          case 6: return "Saturday";
+              break;
+          case 0: return "Sunday";
+              break;
+          default: return "Invalid day";
+              break;  
+            }
     }
-
+    
+    convertToDayOfWeek (array) {
+        return array
+        .map(rawDate => new Date (rawDate) )
+        .map(formatedDate => formatedDate.getDay())
+        .map(numDay => this.convertToDay(numDay))
+    }
 
     render () {
         return (
@@ -186,15 +250,15 @@ export default class Report extends Component {
               <p>No elements in the DB</p>
               )}
 
-              <div className="row">
+            <div className="row">
                 <h4>Your activity at glance</h4>        
-                <Doughnut data={this.LoadDoughnutData() } />
-              </div>    
-
-                <div className="row">
-                    <h4>Your activity at glance</h4>
-                    <Line />
-                </div>  
+                <Doughnut data={ this.LoadDoughnutData() } />
+            </div>    
+            
+            <div className="row">
+                <h4>Your activity at glance</h4>
+                <Line data={ this.LoadLineChartData() } />
+            </div>  
 
           </div>         
           )

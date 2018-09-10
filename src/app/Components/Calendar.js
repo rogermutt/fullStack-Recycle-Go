@@ -22,7 +22,6 @@ export default class CalendarComponent extends Component {
     let newEventsList = [];
 
       data.map(el => {
-        // if i submit item only today it returns "Invalid Day" ??
         
         let obj = new Object();
             obj.start = new Date (el.timestamp);
