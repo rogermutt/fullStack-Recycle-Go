@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 
+const fakeRegoDate = new Date("2018-08-02T08:59:50.337Z");
+
 export default class Report extends Component {
 
     constructor(props) {
@@ -12,6 +14,7 @@ export default class Report extends Component {
         dailyAverage: 0
       }
     }
+
 
     componentDidMount(){
 
@@ -33,7 +36,6 @@ export default class Report extends Component {
           mostCommonDay: this.returnMostCommonItem ( this.returnMostCommonDay( timeStampArray ) )
         });     
         
-
         let len = data.length;
         
         this.setState({
@@ -44,7 +46,7 @@ export default class Report extends Component {
     }
 
     calculateDailyAverage(totalItems, lastDate) {
-      let first_Day = new Date("2018-08-02T08:59:50.337Z"),
+      let first_Day = fakeRegoDate,
           end_Date = new Date(lastDate),
           total_days = (end_Date - first_Day) / (1000 * 60 * 60 * 24);
        
@@ -75,7 +77,7 @@ export default class Report extends Component {
 
     returnMostCommonDay (array) {
       
-      const convertToDay = stringDate => {
+      const convertToDay = stringDate => { 
           switch (stringDate) {
         case 1: return "Monday";
             break;
@@ -89,16 +91,16 @@ export default class Report extends Component {
             break;
         case 6: return "Saturday";
             break;
-        case 7: return "Sunday";
+        case 0: return "Sunday";
             break;
         default: return "Invalid day";
             break;  
           }
       }
 
-      return array.map(rawDate => {
-        let date = new Date (rawDate);
-        let dayOfWeek = date.getDay();
+      return array.map(rawDate => { 
+        let date = new Date (rawDate); 
+        let dayOfWeek = date.getDay(); 
           return convertToDay(dayOfWeek)
       });
 
@@ -124,4 +126,3 @@ export default class Report extends Component {
           )
         }
 }
-

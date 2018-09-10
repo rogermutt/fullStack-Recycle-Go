@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Button from "./Button";
 import IconGrid from "./IconGrid";
 
-const arr = ["box.png", "plastic-bag.png", "plastic-bottle.png", "box.png", "plastic-bag.png", "plastic-bottle.png", "box.png", "plastic-bag.png", "plastic-bottle.png"];
+const arr = ["box.png", "can food.png", "cleaning.png", "coffee.png", "crisps.png", "cutlery.png", "plastic-bag.png", "plastic-bottle.png", "soft drink.png"];
 
 const itemsList = 
 ["Plastic Bag", "Plastic Bottle",
@@ -23,6 +23,11 @@ export default class Grid extends Component {
       
       this.clickHandler = this.clickHandler.bind(this);
       this.submitItems = this.submitItems.bind(this);
+    }
+
+    componentDidMount(){
+
+
     }
 
     clickHandler(e) {
