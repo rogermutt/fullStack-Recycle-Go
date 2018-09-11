@@ -239,25 +239,25 @@ export default class Report extends Component {
               {this.state.itemsSelected.length > 0 ? (  
                 
                 <div className="row">
-                <h4>Highlights of your activity</h4>
+                <h5>Highlights of your activity</h5>
 
                 <div className="col s12 m6 l3">
-                <h4> <strong>{this.state.itemsSelected.length}</strong> </h4>
+                <h5> <strong>{this.state.itemsSelected.length}</strong> </h5>
                 <span>Items you used since your started.</span>
                 </div>
 
                 <div className="col s12 m6 l3">
-                <h4> <strong>{this.state.mostCommonItem}</strong> </h4>
+                <h5> <strong>{this.state.mostCommonItem}</strong> </h5>
                 <span>Your most commonly used item.</span>
                 </div>     
 
                 <div className="col s12 m6 l3">
-                <h4>  <strong>{this.state.mostCommonDay}s.</strong> </h4>
+                <h5>  <strong>{this.state.mostCommonDay}s.</strong> </h5>
                 <span>The day you pollute the most.</span>
                 </div>     
 
                 <div className="col s12 m6 l3">
-                <h4>  <strong>{this.state.dailyAverage}</strong> </h4>
+                <h5>  <strong>{this.state.dailyAverage}</strong> </h5>
                 <span>Average items you throw away per day.</span>
                 </div>   
                   
@@ -268,12 +268,12 @@ export default class Report extends Component {
               )}
 
             <div className="row">
-                <h4>Your activity at glance</h4>        
+                <h5>Your activity at glance</h5>        
                 <Doughnut data={this.LoadDoughnutData()} />
             </div>    
             
             <div className="row">
-                <h4>Your activity at glance</h4>
+                <h5>Your activity at glance</h5>
                 <Line data={this.LoadLineChartData()} />
             </div>  
 

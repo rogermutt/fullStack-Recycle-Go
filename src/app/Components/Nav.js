@@ -6,11 +6,11 @@ export default class Footer extends Component {
   render () {
       return (
           <React.Fragment>
-          <div class="navbar-fixed">
+          <div className="navbar-fixed">
               <nav>
                 <div className="nav-wrapper">
                   <a href="#" className="brand-logo">Logo</a>
-                  <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                  <a href="#" data-target="mobile-demo" className="sidenav-trigger"><i className="material-icons">menu</i></a>
 
                   <HashRouter>
                   <ul id="nav-mobile" className="right hide-on-med-and-down">
@@ -24,8 +24,9 @@ export default class Footer extends Component {
                 </div>
               </nav> 
             </div>
+            
                 <HashRouter>
-                  <ul class="sidenav" id="mobile-demo">
+                  <ul className="sidenav" id="mobile-demo">
                     <li><Link to="/register">Register</Link></li>
                     <li><Link to="/landing">Landing</Link></li>
                     <li><Link to="/reports">Reports</Link></li>

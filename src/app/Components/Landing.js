@@ -94,15 +94,22 @@ export default class Landing extends Component {
 
             <OceanSVG itemsSelected={this.state.itemsSelected.length} />
 
-          <div className="row">
+            <div className="row">
 
               {this.state.itemsSelected.length > 0 ? ( 
                       
               <div className="row">
 
-              <p> There are {this.state.itemsSelected.length} items on the DB</p> 
-              <p> Busiest day is <strong> {this.state.dayOfWeek} </strong> </p> 
+                <div className="col s12 m6 l6">
+                <h4> <strong>{this.state.itemsSelected.length}</strong> </h4>
+                <span>Items you used since your started.</span>
+                </div>
 
+                <div className="col s12 m6 l6">
+                <h4>  <strong>{this.state.dayOfWeek}s.</strong> </h4>
+                <span>The day you pollute the most.</span>
+                </div>               
+ 
               </div>
 
               ) : (
