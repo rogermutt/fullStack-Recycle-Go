@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import Button from "./Button";
 import IconGrid from "./IconGrid";
 import productDB from "../productDB.js"
+import {Carousel} from 'react-materialize'
+
 
 export default class Grid extends Component {
 
@@ -14,6 +16,14 @@ export default class Grid extends Component {
       }
       
       this.submitItems = this.submitItems.bind(this);
+    }
+    componentDidMount(){    
+
+      document.addEventListener('DOMContentLoaded', ()=> {
+        M.Sidenav.init(document.querySelectorAll('.sidenav'));
+        M.Carousel.init(document.querySelectorAll('.carousel.carousel-slider'), {fullWidth: true, indicators: true } ); 
+      });   
+   
     }
  
     loadItems (){
@@ -49,50 +59,27 @@ export default class Grid extends Component {
         return (
           <React.Fragment>
 
-  <div className="carousel carousel-slider center " data-indicators="true" >
-
-    <div className="carousel-fixed-item center">
-       <Button clickHandler={this.submitItems} /> 
-    </div>
-
-    <div className="carousel-item" href="#one!">
-          <div className="row" >
-            {this.state.itemsAvailable.products.filter( item=> item.id < 10).map((item, index) => 
-                (<div key={index} className="col s4">
-                  <IconGrid path={`/images/${item.image}`} details={item} addToSelected={this.addToSelected}  />
-                </div>)
+              <Carousel options={{ fullWidth: true, indicators: true, padding:100 }}>
+      
+              <div className="row" >
+              {this.state.itemsAvailable.products.filter( item=> item.id < 10).map((item, index) => 
+                  (
+                    <IconGrid path={`/images/${item.image}`} details={item} addToSelected={this.addToSelected}  />
+                  )
               )}
-          </div>
-    </div>
+              </div>
 
-    <div className="carousel-item" href="#two!">
-          <div className="row" >
-            {this.state.itemsAvailable.products.filter( item => item.id > 9).map((item, index) => 
-                (<div key={index} className="col s4">
-                  <IconGrid path={`/images/${item.image}`} details={item} addToSelected={this.addToSelected}  />
-                </div>)
+              <div className="row" >
+              {this.state.itemsAvailable.products.filter( item=> item.id > 9).map((item, index) => 
+                  (
+                    <IconGrid path={`/images/${item.image}`} details={item} addToSelected={this.addToSelected}  />
+                  )
               )}
-          </div>
-    </div>
- </div>       
+              </div>
 
-          {/* <div className="container">
-            <div className="row" >
+            </Carousel>
 
-            {this.state.itemsAvailable.products.map((item, index) => 
-               
-              (<div key={index} className="col s4">
-                <IconGrid path={`/images/${item.image}`} details={item} addToSelected={this.addToSelected}  />
-              </div>)
-
-             )}
-            </div>
-
-            <div className="row">
             <Button clickHandler={this.submitItems} /> 
-            </div>
-
-          </div>  */}
 
           </React.Fragment> 
 

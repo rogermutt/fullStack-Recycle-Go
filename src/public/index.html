@@ -18,13 +18,9 @@
 
     <script src="js/bundle.js"></script>
     <!-- Materialize mobile menu -->
-    <script> 
-    document.addEventListener('DOMContentLoaded', ()=> {
-         M.Sidenav.init(document.querySelectorAll('.sidenav'));
-         M.Carousel.init(document.querySelectorAll('.carousel.carousel-slider'), {fullWidth: true, indicators: true } ); 
-    }); 
-    </script>
+    <script> document.addEventListener('DOMContentLoaded', ()=> M.Sidenav.init(document.querySelectorAll('.sidenav')) );  </script>
     <!-- Compiled and minified JavaScript -->
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/react-big-calendar@0.19.0/lib/css/react-big-calendar.css" rel="stylesheet"/>
 

@@ -24,3 +24,11 @@ img.responsive-img {
   background-color: darkgray;
 }
 
+/* BELOW TO BE CHANGED */
+
+.carousel, .carousel-slider {
+min-height: 700px;
+}
+
+
+
