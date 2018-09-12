@@ -8,6 +8,8 @@
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
     <link rel="stylesheet" href="css/stylesheet.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
 </head>
 
 <body>
@@ -16,7 +18,12 @@
 
     <script src="js/bundle.js"></script>
     <!-- Materialize mobile menu -->
-    <script> document.addEventListener('DOMContentLoaded', ()=> M.Sidenav.init(document.querySelectorAll('.sidenav')) ); </script>
+    <script> 
+    document.addEventListener('DOMContentLoaded', ()=> {
+         M.Sidenav.init(document.querySelectorAll('.sidenav'));
+         M.Carousel.init(document.querySelectorAll('.carousel.carousel-slider'), {fullWidth: true, indicators: true } ); 
+    }); 
+    </script>
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/react-big-calendar@0.19.0/lib/css/react-big-calendar.css" rel="stylesheet"/>

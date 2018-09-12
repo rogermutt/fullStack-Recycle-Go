@@ -24,14 +24,14 @@ export default class Footer extends Component {
                 </div>
               </nav> 
             </div>
-            
+
                 <HashRouter>
                   <ul className="sidenav" id="mobile-demo">
-                    <li><Link to="/register">Register</Link></li>
-                    <li><Link to="/landing">Landing</Link></li>
-                    <li><Link to="/reports">Reports</Link></li>
-                    <li><Link to="/select">Select</Link></li>
-                    <li><Link to="/calendar">Calendar</Link></li>
+                    <li><Link className="sidenav-close" to="/register">Register</Link></li>
+                    <li><Link className="sidenav-close" to="/landing">Landing</Link></li>
+                    <li><Link className="sidenav-close" to="/reports">Reports</Link></li>
+                    <li><Link className="sidenav-close" to="/select">Select</Link></li>
+                    <li><Link className="sidenav-close" to="/calendar">Calendar</Link></li>
                 </ul>
               </HashRouter>
 

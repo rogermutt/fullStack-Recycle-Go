@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { log } from "util";
 
 export default class IconGrid extends Component {
   
@@ -6,22 +7,22 @@ export default class IconGrid extends Component {
       super(props);
   
       this.state = {
-        selected: false
+        selected: false,
+        details: this.props.details
       }
-      this.handleClick = this.handleClick.bind(this);
+    }
+
+    componentDidMount(){    
+      
     }
   
-    handleClick(e) {
-      
-      this.setState((prevState) => {
-        return { selected: !prevState.selected }
-      });
-      this.props.test(e);
+    AddItem () {
+      this.props.addToSelected(this.state.details);
     }
   
     render() {
       return (
-          <div data-idx={this.props.idx} onClick={this.handleClick} className={ (this.state.selected ? 'col s4 selectedItem': 'col s4') }>
+          <div onClick={()=>{ this.AddItem()} } className={ (this.state.selected ? 'col s4 selectedItem': 'col s4') }>
             <a> <img className="responsive-img" src={this.props.path} /> </a>
           </div>
       )
