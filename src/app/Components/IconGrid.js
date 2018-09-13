@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { log } from "util";
+
+import Modal from "./Modal";
 
 export default class IconGrid extends Component {
   
@@ -8,23 +9,30 @@ export default class IconGrid extends Component {
   
       this.state = {
         selected: false,
-        details: this.props.details
+        details: this.props.details,
+        qty: 0
       }
+      this.addQuanity = this.addQuanity.bind(this);
     }
 
-    componentDidMount(){    
-      
-    }
-  
     AddItem () {
-      this.props.addToSelected(this.state.details);
+      console.log("additem");
+    }
+
+    addQuanity (qty){  
+        let newQty = this.state.qty + Number(qty);
+        
+        this.setState( {qty: newQty}, () => 
+        this.props.addToSelected(this.state) );
     }
   
     render() {
       return (
-          <div onClick={()=>{ this.AddItem()} } className={ (this.state.selected ? 'col s4 selectedItem': 'col s4') }>
-            <a> <img className="responsive-img" src={this.props.path} /> </a>
-          </div>
+        <Modal addQuanity={this.addQuanity} trigger={
+          <div onClick={()=>{ this.AddItem() } } className={ (this.state.selected ? 'col s4 selectedItem': 'col s4') }>
+          <a> <img className="responsive-img" src={this.props.path} /> </a>
+        </div>      
+        }/>
       )
     }
   }

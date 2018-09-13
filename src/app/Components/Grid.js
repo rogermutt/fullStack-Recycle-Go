@@ -3,7 +3,6 @@ import Button from "./Button";
 import IconGrid from "./IconGrid";
 import productDB from "../productDB.js"
 import { Carousel } from 'react-materialize';
-import Modal from "./Modal";
 
 export default class Grid extends Component {
 
@@ -18,33 +17,33 @@ export default class Grid extends Component {
       this.submitItems = this.submitItems.bind(this);
       this.addToSelected = this.addToSelected.bind(this);
     }
-    componentDidMount(){    
 
+    componentDidMount(){    
       document.addEventListener('DOMContentLoaded', ()=> 
-      M.Carousel.init(document.querySelectorAll('.carousel.carousel-slider'), {fullWidth: true, indicators: true } )
-      );   
-   
+          M.Carousel.init(document.querySelectorAll('.carousel.carousel-slider'), {fullWidth: true, indicators: true } ) );   
     }
  
     loadItems (){
       return productDB;
     }
 
-
     addToSelected(itemClicked) {
-      
-      let { id, categories } = itemClicked;
+
       let { itemsSelected } = this.state;
 
-      itemsSelected.push(itemClicked);
+      let itemReady = {
+        id: itemClicked.details.id, 
+        categories: itemClicked.details.categories,  
+        qty: itemClicked.qty
+      };
+
+      itemsSelected.push(itemReady);
 
       this.setState({ itemsSelected });
 
       console.log("this ",this.state.itemsSelected);
       
     }
-
-
 
     submitItems (e) {
 
@@ -72,17 +71,17 @@ export default class Grid extends Component {
           <React.Fragment>
 
               <Carousel options={{ fullWidth: true, indicators: true }}>
-      
+
               <div className="row" >
-              {this.state.itemsAvailable.products.filter( item=> item.id < 10).map((item, index) => 
+              {this.state.itemsAvailable.products.filter( item => item.id < 10).map((item, index) => 
                   (
                     <IconGrid path={`/images/${item.image}`} details={item} addToSelected={this.addToSelected}  />
                   )
               )}
-              </div>
+              </div>        
 
               <div className="row" >
-              {this.state.itemsAvailable.products.filter( item=> item.id > 9).map((item, index) => 
+              {this.state.itemsAvailable.products.filter( item => item.id > 9).map((item, index) => 
                   (
                     <IconGrid path={`/images/${item.image}`} details={item} addToSelected={this.addToSelected}  />
                   )
@@ -94,8 +93,6 @@ export default class Grid extends Component {
             <div className="row" >
               <Button clickHandler={this.submitItems} /> 
             </div>
-
-        <Modal/>
 
           </React.Fragment> 
 
