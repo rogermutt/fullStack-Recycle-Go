@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import Button from "./Button";
 import IconGrid from "./IconGrid";
 import productDB from "../productDB.js"
-import {Carousel} from 'react-materialize'
-
+import { Carousel } from 'react-materialize';
+import Modal from "./Modal";
 
 export default class Grid extends Component {
 
@@ -16,13 +16,13 @@ export default class Grid extends Component {
       }
       
       this.submitItems = this.submitItems.bind(this);
+      this.addToSelected = this.addToSelected.bind(this);
     }
     componentDidMount(){    
 
-      document.addEventListener('DOMContentLoaded', ()=> {
-        M.Sidenav.init(document.querySelectorAll('.sidenav'));
-        M.Carousel.init(document.querySelectorAll('.carousel.carousel-slider'), {fullWidth: true, indicators: true } ); 
-      });   
+      document.addEventListener('DOMContentLoaded', ()=> 
+      M.Carousel.init(document.querySelectorAll('.carousel.carousel-slider'), {fullWidth: true, indicators: true } )
+      );   
    
     }
  
@@ -30,9 +30,21 @@ export default class Grid extends Component {
       return productDB;
     }
 
+
     addToSelected(itemClicked) {
+      
+      let { id, categories } = itemClicked;
+      let { itemsSelected } = this.state;
+
       itemsSelected.push(itemClicked);
+
+      this.setState({ itemsSelected });
+
+      console.log("this ",this.state.itemsSelected);
+      
     }
+
+
 
     submitItems (e) {
 
@@ -59,7 +71,7 @@ export default class Grid extends Component {
         return (
           <React.Fragment>
 
-              <Carousel options={{ fullWidth: true, indicators: true, padding:100 }}>
+              <Carousel options={{ fullWidth: true, indicators: true }}>
       
               <div className="row" >
               {this.state.itemsAvailable.products.filter( item=> item.id < 10).map((item, index) => 
@@ -79,7 +91,11 @@ export default class Grid extends Component {
 
             </Carousel>
 
-            <Button clickHandler={this.submitItems} /> 
+            <div className="row" >
+              <Button clickHandler={this.submitItems} /> 
+            </div>
+
+        <Modal/>
 
           </React.Fragment> 
 
