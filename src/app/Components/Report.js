@@ -23,85 +23,97 @@ export default class Report extends Component {
 
     componentDidMount(){
 
-    fetch('/api/7to14Days')
-    .then(res => res.json())
-    .then(data => {
+        fetch('/api/7to14Days')
+        .then(res => res.json())
+        .then(data => {
 
-        let timeStampArray = data
-        .map(el => el.timestamp)
-        .map(rawDate => { 
+            let timeStampArray = data
+            .map(el => el.timestamp)
+            .map(rawDate => { 
 
-            let date = new Date (rawDate); 
-            let dayOfWeek = date.getDay(); 
+                let date = new Date (rawDate); 
+                let dayOfWeek = date.getDay(); 
+                
+                return dayOfWeek;
+                
+            });
+
+            var last14DaysValues = {};
+
+            timeStampArray
+            .map(el => this.convertToDay(el))
+            .forEach(el => last14DaysValues[el] = ( last14DaysValues[el] || 0) + 1 ); 
+
+            this.setState({ last14DaysValues });
+
+            // console.log("14 days ",this.state.last14DaysValues);  
             
-            return dayOfWeek;
             
-          });
-
-        var last14DaysValues = {};
-
-        timeStampArray
-        .map(el => this.convertToDay(el))
-        .forEach(el => last14DaysValues[el] = ( last14DaysValues[el] || 0) + 1 ); 
-
-        this.setState({ last14DaysValues });
-
-        console.log("14 days ",this.state.last14DaysValues);  
-        
-          
-    }); 
-
-    fetch('/api/last7Days')
-    .then(res => res.json())
-    .then(data => {
-          
-        let timeStampArray = data
-        .map(el => el.timestamp)
-        .map(rawDate => { 
-
-            let date = new Date (rawDate); 
-            let dayOfWeek = date.getDay(); 
-            
-            return dayOfWeek;
-            
-          });
-
-        var last7DaysValues = {};
-
-        timeStampArray
-        .map(el => this.convertToDay(el))
-        .forEach(el => last7DaysValues[el] = ( last7DaysValues[el] || 0) + 1 ); 
-
-        this.setState({ last7DaysValues });
-
-        console.log("7 days ",this.state.last7DaysValues);  
-    });
-
-    fetch('/api/itemsSelected')
-    .then(res => res.json())
-    .then(data => {
-
-        let itemsSelected = [];
-        data.map(el => el.items).map(array => array.map( el => itemsSelected.push(el)));
-        
-        let timeStampArray = data.map(el => el.timestamp);
-
-        let len = data.length;
-
-        var itemsSelectedOrganized = {};
-        itemsSelected.forEach(el => itemsSelectedOrganized[el] = ( itemsSelectedOrganized[el] || 0) + 1 );      
-            
-        this.setState({
-          itemsSelected: itemsSelected,
-          mostCommonItem: this.returnMostCommonItem( itemsSelected ),
-          mostCommonDay: this.returnMostCommonItem ( this.convertToDayOfWeek( timeStampArray ) ),
-          dailyAverage: this.calculateDailyAverage(len , data[len-1].timestamp ),
-          itemsSelectedOrganized: itemsSelectedOrganized,
-          chartData: Object.values(itemsSelectedOrganized),
-          chartLabels: Object.keys(itemsSelectedOrganized)
         }); 
 
-      });
+        fetch('/api/last7Days')
+        .then(res => res.json())
+        .then(data => {
+            
+            let timeStampArray = data
+            .map(el => el.timestamp)
+            .map(rawDate => { 
+
+                let date = new Date (rawDate); 
+                let dayOfWeek = date.getDay(); 
+                
+                return dayOfWeek;
+                
+            });
+
+            var last7DaysValues = {};
+
+            timeStampArray
+            .map(el => this.convertToDay(el))
+            .forEach(el => last7DaysValues[el] = ( last7DaysValues[el] || 0) + 1 ); 
+
+            this.setState({ last7DaysValues });
+
+            // console.log("7 days ",this.state.last7DaysValues);  
+        });
+
+        fetch('/api/itemsSelected')
+        .then(res => res.json())
+        .then(data => {
+
+
+            let itemsSelected = [];
+            data.map(el => el.items).map(array => array.map( el => itemsSelected.push(el)));
+            
+            let timeStampArray = data.map(el => el.timestamp);
+
+            let len = data.length;
+
+            var itemsSelectedOrganized = {};
+            itemsSelected.forEach(el => itemsSelectedOrganized[el] = ( itemsSelectedOrganized[el] || 0) + 1 );      
+                
+            let itemCategories = data
+            .map(el => el.items)
+            .map(array => array.map( el => el) ); 
+            
+            console.log(itemCategories);
+
+            
+
+            // console.log( "test ", itemCategories );
+            
+
+            this.setState({
+            itemsSelected: itemsSelected,
+            mostCommonItem: this.returnMostCommonItem( itemsSelected ),
+            mostCommonDay: this.returnMostCommonItem ( this.convertToDayOfWeek( timeStampArray ) ),
+            dailyAverage: this.calculateDailyAverage(len , data[len-1].timestamp ),
+            itemsSelectedOrganized: itemsSelectedOrganized,
+            chartData: Object.values(itemsSelectedOrganized),
+            chartLabels: Object.keys(itemsSelectedOrganized)
+            }); 
+
+        });
 
     }
 
@@ -236,13 +248,13 @@ export default class Report extends Component {
     render () {
         return (
           <div className="row">
-              {this.state.itemsSelected.length > 0 ? (  
+              {this.state.itemsSelected > 0 ? (  
                 
                 <div className="row">
                 <h5>Highlights of your activity</h5>
 
                 <div className="col s12 m6 l3">
-                <h5> <strong>{this.state.itemsSelected.length}</strong> </h5>
+                <h5> <strong>{this.state.itemsSelected}</strong> </h5>
                 <span>Items you used since your started.</span>
                 </div>
 
