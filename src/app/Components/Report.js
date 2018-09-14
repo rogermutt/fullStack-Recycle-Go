@@ -81,7 +81,6 @@ export default class Report extends Component {
         .then(res => res.json())
         .then(data => {
 
-
             let itemsSelected = [];
             data.map(el => el.items).map(array => array.map( el => itemsSelected.push(el)));
             
@@ -92,16 +91,12 @@ export default class Report extends Component {
             var itemsSelectedOrganized = {};
             itemsSelected.forEach(el => itemsSelectedOrganized[el] = ( itemsSelectedOrganized[el] || 0) + 1 );      
                 
-            let itemCategories = data
-            .map(el => el.items)
-            .map(array => array.map( el => el) ); 
-            
-            console.log(itemCategories);
+            let catList = [];
 
-            
-
-            // console.log( "test ", itemCategories );
-            
+            data
+            .map(el => el.items)  
+            .map(arr => arr.map( el => el.categories))
+            .map( el => el.map( arr => arr.map( el => catList.push(el) ) ) )
 
             this.setState({
             itemsSelected: itemsSelected,
@@ -109,12 +104,19 @@ export default class Report extends Component {
             mostCommonDay: this.returnMostCommonItem ( this.convertToDayOfWeek( timeStampArray ) ),
             dailyAverage: this.calculateDailyAverage(len , data[len-1].timestamp ),
             itemsSelectedOrganized: itemsSelectedOrganized,
-            chartData: Object.values(itemsSelectedOrganized),
-            chartLabels: Object.keys(itemsSelectedOrganized)
+            chartData: Object.values(this.ocurrencesInArray(catList)),
+            chartLabels: catList.filter( (el, pos)=> catList.indexOf(el) == pos ).sort()
             }); 
 
         });
 
+    }
+
+    ocurrencesInArray (arr) {
+        arr = arr.sort();
+        var itemsSelectedOrganized = {};
+        arr.forEach(el => itemsSelectedOrganized[el] = ( itemsSelectedOrganized[el] || 0) + 1 );      
+        return itemsSelectedOrganized;
     }
 
     LoadDoughnutData (){
@@ -127,29 +129,19 @@ export default class Report extends Component {
             '#FF6384',
             '#36A2EB',
             '#FFCE56',
-            '#FF6384',
-            '#36A2EB',
-            '#FFCE56',
-            '#FF6384',
-            '#36A2EB',
-            '#FFCE56',
-            '#FF6384',
-            '#36A2EB',
-            '#FFCE56'
+            '#FA8072',
+            '#d3ffce',
+            '#40e0d0',
+            '#20b2aa'
             ],
             hoverBackgroundColor: [
             '#FF6384',
             '#36A2EB',
             '#FFCE56',
-            '#FF6384',
-            '#36A2EB',
-            '#FFCE56',
-            '#FF6384',
-            '#36A2EB',
-            '#FFCE56',
-            '#FF6384',
-            '#36A2EB',
-            '#FFCE56'
+            '#FA8072',
+            '#d3ffce',
+            '#40e0d0',
+            '#20b2aa'
             ]
         }]
       }
