@@ -17,7 +17,8 @@ export default class Report extends Component {
         chartData: [],
         chartLabels: [],
         last7DaysValues: {},
-        last14DaysValues: {}
+        last14DaysValues: {},
+        totalNumItems: 0
       }
     }
 
@@ -27,66 +28,66 @@ export default class Report extends Component {
         .then(res => res.json())
         .then(data => {
 
-            let timeStampArray = data
-            .map(el => el.timestamp)
-            .map(rawDate => { 
-
-                let date = new Date (rawDate); 
-                let dayOfWeek = date.getDay(); 
+            var last14DaysValues = {
+                'Mon': 0,'Tue': 0,'Wed': 0,'Thur': 0,'Fri': 0,'Sat': 0,'Sun': 0
+            };
+            
+            data.map(el => {
                 
-                return dayOfWeek;
+                let dayOfWeek = this.convertToDay( new Date (el.timestamp).getDay() );
+                let shortDay = dayOfWeek.slice(0,3);
+                let qty = el.items.map(el=> el.qty).reduce((acc, curr) => acc + curr)
                 
+                last14DaysValues[shortDay] = qty;
             });
+     
+            this.setState({ last14DaysValues });            
 
-            var last14DaysValues = {};
-
-            timeStampArray
-            .map(el => this.convertToDay(el))
-            .forEach(el => last14DaysValues[el] = ( last14DaysValues[el] || 0) + 1 ); 
-
-            this.setState({ last14DaysValues });
-
-            // console.log("14 days ",this.state.last14DaysValues);  
-            
-            
         }); 
 
         fetch('/api/last7Days')
         .then(res => res.json())
         .then(data => {
+
+            var last7DaysValues = {
+                'Mon': 0,'Tue': 0,'Wed': 0,'Thur': 0,'Fri': 0,'Sat': 0,'Sun': 0
+            };
             
-            let timeStampArray = data
-            .map(el => el.timestamp)
-            .map(rawDate => { 
-
-                let date = new Date (rawDate); 
-                let dayOfWeek = date.getDay(); 
+            data.map(el => {
                 
-                return dayOfWeek;
+                let dayOfWeek = this.convertToDay( new Date (el.timestamp).getDay() );
+                let shortDay = dayOfWeek.slice(0,3);
+                let qty = el.items.map(el=> el.qty).reduce((acc, curr) => acc + curr)
                 
+                last7DaysValues[shortDay] = qty;
             });
-
-            var last7DaysValues = {};
-
-            timeStampArray
-            .map(el => this.convertToDay(el))
-            .forEach(el => last7DaysValues[el] = ( last7DaysValues[el] || 0) + 1 ); 
-
+     
             this.setState({ last7DaysValues });
-
-            // console.log("7 days ",this.state.last7DaysValues);  
         });
 
         fetch('/api/itemsSelected')
         .then(res => res.json())
         .then(data => {
 
-            let itemsSelected = [];
-            data.map(el => el.items).map(array => array.map( el => itemsSelected.push(el)));
-            
-            let timeStampArray = data.map(el => el.timestamp);
+            // fixed > used to define most common item using qty 
+            let mostCommonItems = data.map(el => el.items).map(array => {     
+                var highest = Math.max.apply(Math, array.map(o=> o.qty))
+                var obj = array.find(o=> o.qty == highest)
+                return obj;
+            });
+            let highestItem = mostCommonItems.find(o=> o.qty == Math.max.apply(Math, mostCommonItems.map(o=> o.qty)) )
 
-            let len = data.length;
+            let itemsSelected = [];
+            
+            data.map(el => el.items).map(array => array.map(el => itemsSelected.push( el.name )));
+
+            let totalNumberItems = data
+            .map(el => el.items).map(arr => arr.map(el => el.qty).reduce((acc, curr) => acc + curr))
+            .reduce((acc, curr) => acc + curr);
+ 
+            console.log("itemsSelected ", totalNumberItems );
+
+            let timeStampArray = data.map(el => el.timestamp);
 
             var itemsSelectedOrganized = {};
             itemsSelected.forEach(el => itemsSelectedOrganized[el] = ( itemsSelectedOrganized[el] || 0) + 1 );      
@@ -100,12 +101,13 @@ export default class Report extends Component {
 
             this.setState({
             itemsSelected: itemsSelected,
-            mostCommonItem: this.returnMostCommonItem( itemsSelected ),
+            mostCommonItem: highestItem.name,
             mostCommonDay: this.returnMostCommonItem ( this.convertToDayOfWeek( timeStampArray ) ),
-            dailyAverage: this.calculateDailyAverage(len , data[len-1].timestamp ),
+            dailyAverage: this.calculateDailyAverage(totalNumberItems, fakeRegoDate, data[data.length - 1].timestamp ),
             itemsSelectedOrganized: itemsSelectedOrganized,
             chartData: Object.values(this.ocurrencesInArray(catList)),
-            chartLabels: catList.filter( (el, pos)=> catList.indexOf(el) == pos ).sort()
+            chartLabels: catList.filter( (el, pos)=> catList.indexOf(el) == pos ).sort(),
+            totalNumItems: totalNumberItems
             }); 
 
         });
@@ -179,12 +181,20 @@ export default class Report extends Component {
       return data;
     } 
 
-    calculateDailyAverage(totalItems, lastDate) {
-      let first_Day = fakeRegoDate,
-          end_Date = new Date(lastDate),
-          total_days = (end_Date - first_Day) / (1000 * 60 * 60 * 24);
-       
-      return (totalItems / total_days).toFixed(2);
+    calculateDailyAverage(totalItems, firstDate, lastDate) {
+
+        var one_day=1000*60*60*24;
+
+      let first_Day = firstDate.getTime(),
+          end_Date = new Date(lastDate).getTime();
+
+          var difference_ms = end_Date - first_Day;
+
+          var diff = Math.round(difference_ms/one_day);
+ 
+          
+        
+      return (totalItems / diff).toFixed(2);
     }
 
     returnMostCommonItem(arr) {
@@ -240,18 +250,18 @@ export default class Report extends Component {
     render () {
         return (
           <div className="row">
-              {this.state.itemsSelected > 0 ? (  
+              { this.state.itemsSelected.length > 0 ? (  
                 
                 <div className="row">
                 <h5>Highlights of your activity</h5>
 
                 <div className="col s12 m6 l3">
-                <h5> <strong>{this.state.itemsSelected}</strong> </h5>
+                <h5> <strong>{this.state.totalNumItems}</strong> </h5>
                 <span>Items you used since your started.</span>
                 </div>
 
                 <div className="col s12 m6 l3">
-                <h5> <strong>{this.state.mostCommonItem}</strong> </h5>
+                <h5> <strong>{ this.state.mostCommonItem }</strong> </h5>
                 <span>Your most commonly used item.</span>
                 </div>     
 

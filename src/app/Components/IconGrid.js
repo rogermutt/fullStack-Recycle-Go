@@ -15,10 +15,6 @@ export default class IconGrid extends Component {
       this.addQuanity = this.addQuanity.bind(this);
     }
 
-    AddItem () {
-      console.log("additem");
-    }
-
     addQuanity (qty){  
         let newQty = this.state.qty + Number(qty);
         
@@ -29,7 +25,7 @@ export default class IconGrid extends Component {
     render() {
       return (
         <Modal addQuanity={this.addQuanity} trigger={
-          <div onClick={()=>{ this.AddItem() } } className={ (this.state.selected ? 'col s4 selectedItem': 'col s4') }>
+          <div className={ (this.state.selected ? 'col s4 selectedItem': 'col s4') }>
           <a> <img className="responsive-img" src={this.props.path} /> </a>
         </div>      
         }/>

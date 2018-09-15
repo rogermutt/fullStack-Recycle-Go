@@ -4,13 +4,13 @@ export default {
       { 
         "id": 1,
         "name": "Cardboard Box",
-        "categories": ["Home Cooking"],
+        "categories": ["Food", "Cooking"],
         "image": "box.png"
       },
       {
         "id": 2,
         "name": "Food Can",
-        "categories": ["Home Cooking"],
+        "categories": ["Food", "Cooking"],
         "image": "can food.png"
       },
       {
@@ -22,62 +22,62 @@ export default {
       {
         "id": 4,
         "name": "Coffee Cup",
-        "categories": ["Drinks Takeaway"],
+        "categories": ["Drinks", "Takeaway"],
         "image": "coffee.png"
       },
       {
         "id": 5,
         "name": "Crisps Bag",
-        "categories": ["Food Takeaway"],
+        "categories": ["Food", "Takeaway"],
         "image": "crisps.png"
       },
       {
         "id": 6,
         "name": "Plastic Cutlery",
-        "categories": ["Food Takeaway"],
+        "categories": ["Food", "Takeaway"],
         "image": "cutlery.png"
       },
       {
         "id": 7,
         "name": "Soft Drink Can",
-        "categories": ["Drinks Takeaway"],
+        "categories": ["Drinks", "Takeaway"],
         "image": "soft drink.png"
       },
       {
         "id": 8,
         "name": "Plastic Bottle",
-        "categories": ["Drinks Takeaway"],
+        "categories": ["Drinks", "Takeaway"],
         "image": "plastic-bottle.png"  
       },
       {
         "id": 9,
-        "name": "Plastic Bag",
-        "categories": ["Shopping"],
-        "image": "plastic-bag.png"
+        "name": "Cigarette",
+        "categories": ["Other"],
+        "image": "cigarette.png"
       },
       { 
         "id": 10,
-        "name": "",
-        "categories": [""],
-        "image": "plastic-bag.png"
+        "name": "Glass Bottle",
+        "categories": ["Drinks"],
+        "image": "glass-bottle.png"
       },
       {
         "id": 11,
-        "name": "",
-        "categories": [""],
-        "image": "plastic-bag.png"
+        "name": "Food Takeaway",
+        "categories": ["Food", "Takeaway"],
+        "image": "food-takeaway.png"
       },
       {
         "id": 12,
-        "name": "",
-        "categories": [""],
-        "image": "plastic-bag.png"
+        "name": "Toothbrush",
+        "categories": ["Personal Care"],
+        "image": "toothbrush.png"
       },
       {
         "id": 13,
-        "name": "",
-        "categories": [""],
-        "image": "plastic-bag.png"
+        "name": "Plastic Straw",
+        "categories": ["Drink", "Takeaway"],
+        "image": "plastic-straw.png"
       },
       {
         "id": 14,

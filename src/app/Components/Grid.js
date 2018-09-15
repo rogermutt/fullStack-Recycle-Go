@@ -32,6 +32,7 @@ export default class Grid extends Component {
       let { itemsSelected } = this.state;
 
       let itemReady = {
+        name: itemClicked.details.name,  
         id: itemClicked.details.id, 
         categories: itemClicked.details.categories,  
         qty: itemClicked.qty
