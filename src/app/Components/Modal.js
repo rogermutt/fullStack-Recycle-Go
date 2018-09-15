@@ -21,8 +21,7 @@ export default class ModalElement extends Component {
     }
 
     submitHandler (){    
-      this.props.addQuanity(this.state.quantity)
-      console.log("Modal Qty ", this.state.quantity);
+      this.props.addQuantity(this.state.quantity)
     }
 
     closeHandler (){    
@@ -40,7 +39,7 @@ export default class ModalElement extends Component {
                   </React.Fragment>
                 }
                 trigger={this.props.trigger}>
-                  <div className="row">
+                  <div className="row ">
                     <div className="input-field col s6">
                       <input onChange={this.onChangeHandler} value={this.state.quantity} id="quantity_items" type="text" className="validate" />
                       <label className="active" htmlFor="quantity_items">Quantity</label>

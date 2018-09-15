@@ -183,17 +183,13 @@ export default class Report extends Component {
 
     calculateDailyAverage(totalItems, firstDate, lastDate) {
 
-        var one_day=1000*60*60*24;
-
+      let one_day=1000*60*60*24;  
       let first_Day = firstDate.getTime(),
-          end_Date = new Date(lastDate).getTime();
-
-          var difference_ms = end_Date - first_Day;
-
-          var diff = Math.round(difference_ms/one_day);
- 
+          end_Date = new Date(lastDate).getTime(),
+          difference_ms = end_Date - first_Day;
           
-        
+          var diff = Math.round(difference_ms/one_day);
+   
       return (totalItems / diff).toFixed(2);
     }
 

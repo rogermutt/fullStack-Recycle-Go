@@ -26,23 +26,39 @@ export default class Grid extends Component {
     loadItems (){
       return productDB;
     }
+    
 
     addToSelected(itemClicked) {
 
       let { itemsSelected } = this.state;
 
-      let itemReady = {
-        name: itemClicked.details.name,  
-        id: itemClicked.details.id, 
-        categories: itemClicked.details.categories,  
-        qty: itemClicked.qty
-      };
+      let idx = itemClicked.details.id;
 
-      itemsSelected.push(itemReady);
+      let ids = itemsSelected.map(el=>el.id);
 
-      this.setState({ itemsSelected });
+      if ( ids.indexOf(idx) > -1 ) {
 
-      console.log("this ",this.state.itemsSelected);
+        let newList = itemsSelected.filter( el => el.id != idx);
+
+        this.setState({ itemsSelected: newList }, ()=>{
+          console.log("existing item removed ", this.state.itemsSelected  );
+        });
+
+      } else {
+        let itemReady = {
+          name: itemClicked.details.name,  
+          id: itemClicked.details.id, 
+          categories: itemClicked.details.categories,  
+          qty: itemClicked.qty
+        };
+  
+        itemsSelected.push(itemReady);
+  
+        this.setState({ itemsSelected }, ()=>{
+          console.log("new item added ", this.state.itemsSelected  );
+        });
+
+      }
       
     }
 
