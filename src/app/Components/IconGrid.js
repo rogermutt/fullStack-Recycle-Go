@@ -14,22 +14,21 @@ export default class IconGrid extends Component {
         qty: 0
       }
       this.updateQuantity = this.updateQuantity.bind(this);
+      
+    }
+
+    static getDerivedStateFromProps(props, state) {
+       return props.IDSelected.indexOf(state.details.id) > -1 ? { selected: true, } : { selected: false, };
     }
 
     updateQuantity (qty){  
         
-        let selected = this.state.selected ? false : true; 
         let newQty =  this.state.qty > 0 ? 0 : this.state.qty + Number(qty);
-        this.setState( {qty: newQty, selected: selected}, () => 
+        this.setState( {qty: newQty}, () => 
         this.props.addToSelected(this.state) );
-    }
-
-    componentDidMount(){
-      
-      console.log( "id ", this.props.IDSelected.indexOf( this.state.details.id ) );
-      
-    }
-  
+        
+    } 
+ 
     render() {
       return (
         <React.Fragment>

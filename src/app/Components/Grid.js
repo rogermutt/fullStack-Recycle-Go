@@ -49,7 +49,7 @@ export default class Grid extends Component {
   
         itemsSelected.push(itemToAdd);
   
-        this.setState({ itemsSelected }, ()=>{ console.log( this.state.itemsSelected ); } );
+        this.setState({ itemsSelected } );
 
       }
       
