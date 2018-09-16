@@ -22,7 +22,12 @@ export default class IconGrid extends Component {
         let newQty =  this.state.qty > 0 ? 0 : this.state.qty + Number(qty);
         this.setState( {qty: newQty, selected: selected}, () => 
         this.props.addToSelected(this.state) );
+    }
 
+    componentDidMount(){
+      
+      console.log( "id ", this.props.IDSelected.indexOf( this.state.details.id ) );
+      
     }
   
     render() {

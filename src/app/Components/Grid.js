@@ -26,37 +26,30 @@ export default class Grid extends Component {
     loadItems (){
       return productDB;
     }
-    
-
+ 
     addToSelected(itemClicked) {
 
       let { itemsSelected } = this.state;
+      let clickedID = itemClicked.details.id;
+      let currentIDs = itemsSelected.map(el => el.id);
 
-      let idx = itemClicked.details.id;
-
-      let ids = itemsSelected.map(el=>el.id);
-
-      if ( ids.indexOf(idx) > -1 ) {
-
-        let newList = itemsSelected.filter( el => el.id != idx);
-
-        this.setState({ itemsSelected: newList }, ()=>{
-          console.log("existing item removed ", this.state.itemsSelected  );
-        });
+      if ( currentIDs.indexOf(clickedID) > -1 ) { 
+    
+        let newList = itemsSelected.filter( el => el.id != clickedID);
+        this.setState({ itemsSelected: newList } );
 
       } else {
-        let itemReady = {
+
+        let itemToAdd = {
           name: itemClicked.details.name,  
           id: itemClicked.details.id, 
           categories: itemClicked.details.categories,  
           qty: itemClicked.qty
         };
   
-        itemsSelected.push(itemReady);
+        itemsSelected.push(itemToAdd);
   
-        this.setState({ itemsSelected }, ()=>{
-          console.log("new item added ", this.state.itemsSelected  );
-        });
+        this.setState({ itemsSelected }, ()=>{ console.log( this.state.itemsSelected ); } );
 
       }
       
@@ -76,8 +69,7 @@ export default class Grid extends Component {
           })
             .then(res => res.json())
             .then(data => {
-              console.log("Router responded ", data);
-              this.setState({itemsSelected: []});
+              this.setState({itemsSelected: []} );
           
             })
             .catch(err => console.error(err));
@@ -89,27 +81,27 @@ export default class Grid extends Component {
 
               <Carousel options={{ fullWidth: true, indicators: true }}>
 
-              <div className="row" >
-              {this.state.itemsAvailable.products.filter( item => item.id < 10).map((item, index) => 
-                  (
-                    <IconGrid path={`/images/${item.image}`} details={item} addToSelected={this.addToSelected}  />
-                  )
-              )}
-              </div>        
+                <div className="row" >
+                {this.state.itemsAvailable.products.filter( item => item.id < 10).map((item, index) => 
+                    (
+                      <IconGrid IDSelected={this.state.itemsSelected.map(el=>el.id)} path={`/images/${item.image}`} details={item} addToSelected={this.addToSelected}  />
+                    )
+                )}
+                </div>        
 
-              <div className="row" >
-              {this.state.itemsAvailable.products.filter( item => item.id > 9).map((item, index) => 
-                  (
-                    <IconGrid path={`/images/${item.image}`} details={item} addToSelected={this.addToSelected}  />
-                  )
-              )}
-              </div>
+                <div className="row" >
+                {this.state.itemsAvailable.products.filter( item => item.id > 9).map((item, index) => 
+                    (
+                      <IconGrid IDSelected={this.state.itemsSelected.map(el=>el.id)} path={`/images/${item.image}`} details={item} addToSelected={this.addToSelected}  />
+                    )
+                )}
+                </div>
 
             </Carousel>
 
-            <div className="row" >
-              <Button clickHandler={this.submitItems} /> 
-            </div>
+              <div className="row" >
+                <Button clickHandler={this.submitItems} /> 
+              </div>
 
           </React.Fragment> 
 
