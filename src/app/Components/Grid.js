@@ -49,7 +49,10 @@ export default class Grid extends Component {
   
         itemsSelected.push(itemToAdd);
   
-        this.setState({ itemsSelected } );
+        this.setState({ itemsSelected }, ()=>{
+          console.log( this.state.itemsSelected );
+          
+        } );
 
       }
       
@@ -84,7 +87,14 @@ export default class Grid extends Component {
                 <div className="row" >
                 {this.state.itemsAvailable.products.filter( item => item.id < 10).map((item, index) => 
                     (
-                      <IconGrid IDSelected={this.state.itemsSelected.map(el=>el.id)} path={`/images/${item.image}`} details={item} addToSelected={this.addToSelected}  />
+                      <IconGrid key={index} IDSelected={this.state.itemsSelected.map(el=>{
+
+                        let obj = {};
+                        obj.id = el.id;
+                        obj.qty = el.qty;
+                        return obj;
+
+                      })} path={`/images/${item.image}`} details={item} addToSelected={this.addToSelected}  />
                     )
                 )}
                 </div>        
@@ -92,7 +102,7 @@ export default class Grid extends Component {
                 <div className="row" >
                 {this.state.itemsAvailable.products.filter( item => item.id > 9).map((item, index) => 
                     (
-                      <IconGrid IDSelected={this.state.itemsSelected.map(el=>el.id)} path={`/images/${item.image}`} details={item} addToSelected={this.addToSelected}  />
+                      <IconGrid key={index} IDSelected={this.state.itemsSelected.map(el=>el.id)} path={`/images/${item.image}`} details={item} addToSelected={this.addToSelected}  />
                     )
                 )}
                 </div>

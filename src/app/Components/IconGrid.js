@@ -17,8 +17,23 @@ export default class IconGrid extends Component {
       
     }
 
+    //// should QTY also come from Grid ? 
+
+    //// At the moment the number of items is still visible after submission
+
     static getDerivedStateFromProps(props, state) {
-       return props.IDSelected.indexOf(state.details.id) > -1 ? { selected: true, } : { selected: false, };
+
+      if (props.IDSelected.indexOf(state.details.id) > -1) {
+        console.log("here ",props.quantities);
+        
+        return  { selected: true, };
+      } else {
+        return { selected: false, };
+      }
+
+    
+
+       
     }
 
     updateQuantity (qty){  
