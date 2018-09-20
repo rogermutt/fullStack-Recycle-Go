@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 import Modal from "./Modal";
 import Image from "./Image";
+import Badge from "./NumberBadge";
 
 export default class IconGrid extends Component {
   
@@ -9,58 +10,45 @@ export default class IconGrid extends Component {
       super(props);
   
       this.state = {
-        selected: false,
-        details: this.props.details,
-        qty: 0
-      }
+        details: this.props.details 
+      } 
       this.updateQuantity = this.updateQuantity.bind(this);
       
     }
 
-    //// should QTY also come from Grid ? 
-
-    //// At the moment the number of items is still visible after submission
-
-    static getDerivedStateFromProps(props, state) {
-
-      if (props.IDSelected.indexOf(state.details.id) > -1) {
-        console.log("here ",props.quantities);
-        
-        return  { selected: true, };
-      } else {
-        return { selected: false, };
-      }
-
-    
-
-       
-    }
-
     updateQuantity (qty){  
-        
-        let newQty =  this.state.qty > 0 ? 0 : this.state.qty + Number(qty);
-        this.setState( {qty: newQty}, () => 
-        this.props.addToSelected(this.state) );
-        
+      this.props.addToSelected(this.state.details, Number(qty) );
     } 
  
     render() {
       return (
         <React.Fragment>
-          { this.state.selected ? 
+
+       
+          { this.props.itemsSelected.map(el=>el.id).indexOf(this.state.details.id) > -1 ? 
           (
-              <div onClick={this.updateQuantity} className={ (this.state.selected ? 'col s4 selectedItem': 'col s4') }>
+              <div onClick={this.updateQuantity} className='col s4 selectedItem'>
+              
               <Image path={this.props.path} />
-              <span className="badge"> { (this.state.qty > 0 ? this.state.qty : '') } </span>
+
+                  <Badge quantity={this.props.itemsSelected.map(item => {
+                    return item.id === this.state.details.id ? Number(item.qty) : ""  
+                  })} />
+
               </div>   
           ) :
               <Modal addQuantity={this.updateQuantity} trigger= {
-                <div className={ (this.state.selected ? 'col s4 selectedItem': 'col s4') }>
+                <div className='col s4'>
                 <Image path={this.props.path} />
-                <span className="badge"> { (this.state.qty > 0 ? this.state.qty : '') } </span>
+
+                  <Badge quantity={this.props.itemsSelected.map(item => {
+                    return item.id === this.state.details.id ? Number(item.qty) : ""
+                  })} />
+             
               </div>      
               }/>
           }
+
         </React.Fragment>
       )
     }

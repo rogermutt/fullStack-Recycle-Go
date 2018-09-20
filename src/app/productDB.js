@@ -5,19 +5,22 @@ export default {
         "id": 1,
         "name": "Cardboard Box",
         "categories": ["Food", "Cooking"],
-        "image": "box.png"
+        "image": "box.png",
+        "qty": 0
       },
       {
         "id": 2,
         "name": "Food Can",
         "categories": ["Food", "Cooking"],
-        "image": "can food.png"
+        "image": "can food.png",
+        "qty": 0
       },
       {
         "id": 3,
         "name": "Shower Gel",
         "categories": ["Personal Care"],
-        "image": "cleaning.png"
+        "image": "cleaning.png",
+        "qty": 0
       },
       {
         "id": 4,

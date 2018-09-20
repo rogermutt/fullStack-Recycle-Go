@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Modal } from 'react-materialize';
-import Button from "./Button";
 
 export default class ModalElement extends Component {
 

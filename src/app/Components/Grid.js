@@ -27,10 +27,10 @@ export default class Grid extends Component {
       return productDB;
     }
  
-    addToSelected(itemClicked) {
+    addToSelected(itemClicked, qty) {
 
       let { itemsSelected } = this.state;
-      let clickedID = itemClicked.details.id;
+      let clickedID = itemClicked.id;
       let currentIDs = itemsSelected.map(el => el.id);
 
       if ( currentIDs.indexOf(clickedID) > -1 ) { 
@@ -41,16 +41,19 @@ export default class Grid extends Component {
       } else {
 
         let itemToAdd = {
-          name: itemClicked.details.name,  
-          id: itemClicked.details.id, 
-          categories: itemClicked.details.categories,  
-          qty: itemClicked.qty
+          name: itemClicked.name,  
+          id: itemClicked.id, 
+          categories: itemClicked.categories,  
+          qty: qty
         };
+
+        console.log("itemToAdd ", itemToAdd);
+        
   
         itemsSelected.push(itemToAdd);
   
         this.setState({ itemsSelected }, ()=>{
-          console.log( this.state.itemsSelected );
+          console.log("Added Item", this.state.itemsSelected );
           
         } );
 
@@ -87,14 +90,7 @@ export default class Grid extends Component {
                 <div className="row" >
                 {this.state.itemsAvailable.products.filter( item => item.id < 10).map((item, index) => 
                     (
-                      <IconGrid key={index} IDSelected={this.state.itemsSelected.map(el=>{
-
-                        let obj = {};
-                        obj.id = el.id;
-                        obj.qty = el.qty;
-                        return obj;
-
-                      })} path={`/images/${item.image}`} details={item} addToSelected={this.addToSelected}  />
+                      <IconGrid itemsSelected={this.state.itemsSelected} key={index} path={`/images/${item.image}`} details={item} addToSelected={this.addToSelected}  />
                     )
                 )}
                 </div>        
@@ -102,7 +98,7 @@ export default class Grid extends Component {
                 <div className="row" >
                 {this.state.itemsAvailable.products.filter( item => item.id > 9).map((item, index) => 
                     (
-                      <IconGrid key={index} IDSelected={this.state.itemsSelected.map(el=>el.id)} path={`/images/${item.image}`} details={item} addToSelected={this.addToSelected}  />
+                      <IconGrid key={index} itemsSelected={this.state.itemsSelected} path={`/images/${item.image}`} details={item} addToSelected={this.addToSelected}  />
                     )
                 )}
                 </div>
