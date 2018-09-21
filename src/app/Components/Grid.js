@@ -36,7 +36,9 @@ export default class Grid extends Component {
       if ( currentIDs.indexOf(clickedID) > -1 ) { 
     
         let newList = itemsSelected.filter( el => el.id != clickedID);
-        this.setState({ itemsSelected: newList } );
+        this.setState({ itemsSelected: newList }, ()=>{
+          console.log("Removed. New State: ", this.state.itemsSelected );
+        });
 
       } else {
 
@@ -46,16 +48,12 @@ export default class Grid extends Component {
           categories: itemClicked.categories,  
           qty: qty
         };
-
-        console.log("itemToAdd ", itemToAdd);
-        
-  
+          
         itemsSelected.push(itemToAdd);
   
         this.setState({ itemsSelected }, ()=>{
-          console.log("Added Item", this.state.itemsSelected );
-          
-        } );
+          console.log("Added. New State: ", this.state.itemsSelected );
+        });
 
       }
       
@@ -88,19 +86,19 @@ export default class Grid extends Component {
               <Carousel options={{ fullWidth: true, indicators: true }}>
 
                 <div className="row" >
-                {this.state.itemsAvailable.products.filter( item => item.id < 10).map((item, index) => 
-                    (
-                      <IconGrid itemsSelected={this.state.itemsSelected} key={index} path={`/images/${item.image}`} details={item} addToSelected={this.addToSelected}  />
-                    )
-                )}
+                    {this.state.itemsAvailable.products.filter( item => item.id < 10).map((item, index) => 
+                        (
+                          <IconGrid itemsSelected={this.state.itemsSelected} key={index} path={`/images/${item.image}`} details={item} addToSelected={this.addToSelected}  />
+                        )
+                    )}
                 </div>        
 
                 <div className="row" >
-                {this.state.itemsAvailable.products.filter( item => item.id > 9).map((item, index) => 
-                    (
-                      <IconGrid key={index} itemsSelected={this.state.itemsSelected} path={`/images/${item.image}`} details={item} addToSelected={this.addToSelected}  />
-                    )
-                )}
+                    {this.state.itemsAvailable.products.filter( item => item.id > 9).map((item, index) => 
+                        (
+                          <IconGrid key={index} itemsSelected={this.state.itemsSelected} path={`/images/${item.image}`} details={item} addToSelected={this.addToSelected}  />
+                        )
+                    )}
                 </div>
 
             </Carousel>

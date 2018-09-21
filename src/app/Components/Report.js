@@ -69,12 +69,12 @@ export default class Report extends Component {
         .then(res => res.json())
         .then(data => {
 
-            // fixed > used to define most common item using qty 
             let mostCommonItems = data.map(el => el.items).map(array => {     
                 var highest = Math.max.apply(Math, array.map(o=> o.qty))
                 var obj = array.find(o=> o.qty == highest)
                 return obj;
-            });
+            });            
+
             let highestItem = mostCommonItems.find(o=> o.qty == Math.max.apply(Math, mostCommonItems.map(o=> o.qty)) )
 
             let itemsSelected = [];
@@ -84,8 +84,6 @@ export default class Report extends Component {
             let totalNumberItems = data
             .map(el => el.items).map(arr => arr.map(el => el.qty).reduce((acc, curr) => acc + curr))
             .reduce((acc, curr) => acc + curr);
- 
-            console.log("itemsSelected ", totalNumberItems );
 
             let timeStampArray = data.map(el => el.timestamp);
 
@@ -190,7 +188,7 @@ export default class Report extends Component {
           
           var diff = Math.round(difference_ms/one_day);
    
-      return (totalItems / diff).toFixed(2);
+      return (totalItems / diff).toFixed(1);
     }
 
     returnMostCommonItem(arr) {

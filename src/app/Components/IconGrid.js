@@ -29,7 +29,7 @@ export default class IconGrid extends Component {
           (
               <div onClick={this.updateQuantity} className='col s4 selectedItem'>
               
-              <Image path={this.props.path} />
+                  <Image path={this.props.path} />
 
                   <Badge quantity={this.props.itemsSelected.map(item => {
                     return item.id === this.state.details.id ? Number(item.qty) : ""  
@@ -38,14 +38,16 @@ export default class IconGrid extends Component {
               </div>   
           ) :
               <Modal addQuantity={this.updateQuantity} trigger= {
-                <div className='col s4'>
-                <Image path={this.props.path} />
+
+                  <div className='col s4'>
+                  <Image path={this.props.path} />
 
                   <Badge quantity={this.props.itemsSelected.map(item => {
                     return item.id === this.state.details.id ? Number(item.qty) : ""
                   })} />
              
-              </div>      
+                  </div>    
+                    
               }/>
           }
 
