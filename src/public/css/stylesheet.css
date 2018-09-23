@@ -23,6 +23,12 @@ img.responsive-img {
 .indicators {
   background-color: darkgray;
 }
+
+.icon-img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
  
 
 /* BELOW TO BE CHANGED */
