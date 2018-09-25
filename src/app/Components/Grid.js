@@ -88,14 +88,16 @@ export default class Grid extends Component {
                 <div className="row" >
                     {this.state.itemsAvailable.products.filter( item => item.id < 10).map((item, index) => {
 
-                      let itemSelected = this.state.itemsSelected.map(el=>el.id).indexOf(item.id) > 0;
-
-                      if (this.state.itemsSelected.map(el=>el.id).indexOf(item.id) > -1)
-                      console.log('BLABLA ', item );
                       
-    
+                      let isItemSelected = this.state.itemsSelected.map(el=>el.id).indexOf(item.id) > -1;
+
+                      // Passing as prop boolean on whether element is there
+                      // can't seem to be able to pass qty. Using map returns array with null, null, 1, null, etc
+                      // so neeed to find alternative. The idea is to return either QTY or FALSE/null
+
+
                         return (
-                          <IconGrid itemsSelected={this.state.itemsSelected} key={index} path={`/images/${item.image}`} details={item} addToSelected={this.addToSelected}  />
+                          <IconGrid isItemSelected={isItemSelected} key={index} path={`/images/${item.image}`} details={item} addToSelected={this.addToSelected}  />
                         )
                     })}
                 </div>        

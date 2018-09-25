@@ -24,20 +24,14 @@ export default class IconGrid extends Component {
       return (
 
         <div className="icon-container" >
-    
-        
-          { this.props.itemsSelected.map(el => el.id).indexOf(this.state.details.id) > -1 ? 
-          (  
+
+
+        { this.props.isItemSelected ? (  
               <div onClick={this.updateQuantity} className='col s4 selectedItem card'>
-              
               
                   <Image path={this.props.path} />
 
-                  <Badge quantity={this.props.itemsSelected.map(item => {
-                    // console.log("quantity ", item.id === this.state.details.id ? Number(item.qty) : "" );
-                    
-                    return item.id === this.state.details.id ? Number(item.qty) : ""  
-                  })} />
+                  <Badge quantity={"Test"} />
 
               </div>   
           ) :
@@ -47,16 +41,12 @@ export default class IconGrid extends Component {
 
                   <Image path={this.props.path} />
 
-
-
-                  <Badge quantity={this.props.itemsSelected.map(item => {
-                    return item.id === this.state.details.id ? Number(item.qty) : ""
-                  })} />
+                  <Badge quantity={"Test"} />
              
                   </div>    
                     
-              }/>
-          }
+              }/>  }
+    
 
         </div>
       )
