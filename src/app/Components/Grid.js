@@ -86,11 +86,18 @@ export default class Grid extends Component {
               <Carousel options={{ fullWidth: true, indicators: true }}>
 
                 <div className="row" >
-                    {this.state.itemsAvailable.products.filter( item => item.id < 10).map((item, index) => 
-                        (
+                    {this.state.itemsAvailable.products.filter( item => item.id < 10).map((item, index) => {
+
+                      let itemSelected = this.state.itemsSelected.map(el=>el.id).indexOf(item.id) > 0;
+
+                      if (this.state.itemsSelected.map(el=>el.id).indexOf(item.id) > -1)
+                      console.log('BLABLA ', item );
+                      
+    
+                        return (
                           <IconGrid itemsSelected={this.state.itemsSelected} key={index} path={`/images/${item.image}`} details={item} addToSelected={this.addToSelected}  />
                         )
-                    )}
+                    })}
                 </div>        
 
                 <div className="row" >

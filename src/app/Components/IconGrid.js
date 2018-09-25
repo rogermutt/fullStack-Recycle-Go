@@ -34,7 +34,7 @@ export default class IconGrid extends Component {
                   <Image path={this.props.path} />
 
                   <Badge quantity={this.props.itemsSelected.map(item => {
-                    console.log("quantity ", item.id === this.state.details.id ? Number(item.qty) : "" );
+                    // console.log("quantity ", item.id === this.state.details.id ? Number(item.qty) : "" );
                     
                     return item.id === this.state.details.id ? Number(item.qty) : ""  
                   })} />
@@ -47,12 +47,9 @@ export default class IconGrid extends Component {
 
                   <Image path={this.props.path} />
 
-                  {/* Below to be amended as it un-necessarily re-renders all badge items. 
-                  Potentially to retrieve info from map in line 29  */}
+
 
                   <Badge quantity={this.props.itemsSelected.map(item => {
-                    
-                  
                     return item.id === this.state.details.id ? Number(item.qty) : ""
                   })} />
              
