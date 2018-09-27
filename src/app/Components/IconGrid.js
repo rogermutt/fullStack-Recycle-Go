@@ -25,13 +25,15 @@ export default class IconGrid extends Component {
 
         <div className="icon-container" >
 
+        { console.log(`name:  ${this.state.details.name} QTY: ${this.props.quantity}` ) }
+
 
         { this.props.isItemSelected ? (  
               <div onClick={this.updateQuantity} className='col s4 selectedItem card'>
               
                   <Image path={this.props.path} />
 
-                  <Badge quantity={"Test"} />
+                  <Badge quantity={this.props.quantity} />
 
               </div>   
           ) :
@@ -41,7 +43,7 @@ export default class IconGrid extends Component {
 
                   <Image path={this.props.path} />
 
-                  <Badge quantity={"Test"} />
+                  <Badge quantity={this.props.quantity} />
              
                   </div>    
                     
