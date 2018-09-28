@@ -29,18 +29,17 @@ export default class Report extends Component {
         .then(data => {
 
             var last14DaysValues = {
-                'Mon': 0,'Tue': 0,'Wed': 0,'Thur': 0,'Fri': 0,'Sat': 0,'Sun': 0
+                'Mon': 0,'Tue': 0,'Wed': 0,'Thu': 0,'Fri': 0,'Sat': 0,'Sun': 0
             };
             
-            data.map(el => {
+            data.map(DBentry => {
                 
-                let dayOfWeek = this.convertToDay( new Date (el.timestamp).getDay() );
-                let shortDay = dayOfWeek.slice(0,3);
-                let qty = el.items.map(el=> el.qty).reduce((acc, curr) => acc + curr)
-                
-                last14DaysValues[shortDay] = qty;
+                let dayOfWeekString = this.convertToDay( new Date (DBentry.timestamp).getDay() );
+                let shortDay = dayOfWeekString.slice(0,3);
+                let qty = DBentry.items.map(el=> el.qty).reduce((acc, curr) => acc + curr)
+                last14DaysValues[shortDay] += qty;
             });
-     
+
             this.setState({ last14DaysValues });            
 
         }); 
@@ -50,7 +49,7 @@ export default class Report extends Component {
         .then(data => {
 
             var last7DaysValues = {
-                'Mon': 0,'Tue': 0,'Wed': 0,'Thur': 0,'Fri': 0,'Sat': 0,'Sun': 0
+                'Mon': 0,'Tue': 0,'Wed': 0,'Thu': 0,'Fri': 0,'Sat': 0,'Sun': 0
             };
             
             data.map(el => {
@@ -58,10 +57,10 @@ export default class Report extends Component {
                 let dayOfWeek = this.convertToDay( new Date (el.timestamp).getDay() );
                 let shortDay = dayOfWeek.slice(0,3);
                 let qty = el.items.map(el=> el.qty).reduce((acc, curr) => acc + curr)
-                
-                last7DaysValues[shortDay] = qty;
+
+                last7DaysValues[shortDay] += qty;
             });
-     
+            
             this.setState({ last7DaysValues });
         });
 
@@ -153,7 +152,7 @@ export default class Report extends Component {
     LoadLineChartData (){
 
     const data = {
-        labels: ['Mon','Tue','Wed','Thur','Fri','Sat','Sun'],
+        labels: ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
         datasets: [
           {
             label: 'Current Week',

@@ -25,9 +25,6 @@ export default class IconGrid extends Component {
 
         <div className="icon-container" >
 
-        { console.log(`name:  ${this.state.details.name} QTY: ${this.props.quantity}` ) }
-
-
         { this.props.isItemSelected ? (  
               <div onClick={this.updateQuantity} className='col s4 selectedItem card'>
               

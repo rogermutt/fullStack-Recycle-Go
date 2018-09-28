@@ -91,33 +91,31 @@ export default class Grid extends Component {
                       let idx = this.state.itemsSelected.map(el=>el.id).indexOf(item.id);
 
                       let qty = this.state.itemsSelected[idx] !== undefined ? this.state.itemsSelected[idx].qty : 0;
-
-                      // console.log( `Item: ${item.name} Qty: ${qty}` );
-                      
-                      
+ 
                       let isItemSelected = this.state.itemsSelected.map(el=>el.id).indexOf(item.id) > -1;
 
                       return (
                         <IconGrid quantity={qty} isItemSelected={isItemSelected} key={index} path={`/images/${item.image}`} details={item} addToSelected={this.addToSelected}  />
                       )
 
-
-
-                      // Passing as prop boolean on whether element is there
-                      // can't seem to be able to pass qty. Using map returns array with null, null, 1, null, etc
-                      // so neeed to find alternative. The idea is to return either QTY or FALSE/null
-
-
                     })}
                 </div>        
-
+                
                 <div className="row" >
-                    {this.state.itemsAvailable.products.filter( item => item.id > 9).map((item, index) => 
-                        (
-                          <IconGrid key={index} itemsSelected={this.state.itemsSelected} path={`/images/${item.image}`} details={item} addToSelected={this.addToSelected}  />
-                        )
-                    )}
-                </div>
+                    {this.state.itemsAvailable.products.filter( item => item.id > 9).map((item, index) => {
+
+                      let idx = this.state.itemsSelected.map(el=>el.id).indexOf(item.id);
+
+                      let qty = this.state.itemsSelected[idx] !== undefined ? this.state.itemsSelected[idx].qty : 0;
+ 
+                      let isItemSelected = this.state.itemsSelected.map(el=>el.id).indexOf(item.id) > -1;
+
+                      return (
+                        <IconGrid quantity={qty} isItemSelected={isItemSelected} key={index} path={`/images/${item.image}`} details={item} addToSelected={this.addToSelected}  />
+                      )
+
+                    })}
+                </div>   
 
             </Carousel>
 
