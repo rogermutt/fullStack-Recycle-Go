@@ -249,24 +249,14 @@ export default class Report extends Component {
                 <div className="row">
                 <h5>Highlights of your activity</h5>
 
+                <Highlight title={ this.state.totalNumItems } text="Items you used since your started." />
 
-                <Highlight title={this.state.totalNumItems} text="Items you used since your started." />
+                <Highlight title={ this.state.mostCommonItem } text="Your most commonly used item." />
 
-                <div className="col s12 m6 l3">
-                <h5> <strong>{ this.state.mostCommonItem }</strong> </h5>
-                <span>Your most commonly used item.</span>
-                </div>     
+                <Highlight title={ this.state.mostCommonDay } text="The day you pollute the most." />
 
-                <div className="col s12 m6 l3">
-                <h5>  <strong>{this.state.mostCommonDay}s.</strong> </h5>
-                <span>The day you pollute the most.</span>
-                </div>     
-
-                <div className="col s12 m6 l3">
-                <h5>  <strong>{this.state.dailyAverage}</strong> </h5>
-                <span>Average items you throw away per day.</span>
-                </div>   
-                  
+                <Highlight title={ this.state.dailyAverage } text="Average items you throw away per day." />
+                   
                 </div>
 
               ) : (
