@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { HashRouter, Link } from 'react-router-dom';
 
 
+//  Add materialize Tabs animation
+
 export default class Footer extends Component {
   render () {
       return (

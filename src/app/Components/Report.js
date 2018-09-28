@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Doughnut from "./DoughnutChart";
 import Line from "./LineChart";
 import Highlight from "./Data-Highlight";
+import H5 from "./H5";
 
 const fakeRegoDate = new Date("2018-08-02T08:59:50.337Z");
 
@@ -247,15 +248,13 @@ export default class Report extends Component {
               { this.state.itemsSelected.length > 0 ? (  
                 
                 <div className="row">
-                <h5>Highlights of your activity</h5>
 
-                <Highlight title={ this.state.totalNumItems } text="Items you used since your started." />
+                <H5 title="Highlights of your activity" />
 
-                <Highlight title={ this.state.mostCommonItem } text="Your most commonly used item." />
-
-                <Highlight title={ this.state.mostCommonDay } text="The day you pollute the most." />
-
-                <Highlight title={ this.state.dailyAverage } text="Average items you throw away per day." />
+                    <Highlight title={ this.state.totalNumItems } text="Items you used since your started." />
+                    <Highlight title={ this.state.mostCommonItem } text="Your most commonly used item." />
+                    <Highlight title={ this.state.mostCommonDay } text="The day you pollute the most." />
+                    <Highlight title={ this.state.dailyAverage } text="Average items you throw away per day." />
                    
                 </div>
 
@@ -264,12 +263,16 @@ export default class Report extends Component {
               )}
 
             <div className="row">
-                <h5>Your activity at glance</h5>        
+                
+                <H5 title="Your activity at glance" />
+                
                 <Doughnut data={this.LoadDoughnutData()} />
             </div>    
             
             <div className="row">
-                <h5>Your activity at glance</h5>
+                
+                <H5 title="Your activity at glance" />
+                
                 <Line data={this.LoadLineChartData()} />
             </div>  
 

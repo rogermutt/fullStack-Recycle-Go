@@ -4,14 +4,14 @@ export default {
       { 
         "id": 1,
         "name": "Cardboard Box",
-        "categories": ["Food", "Cooking"],
+        "categories": ["Food"],
         "image": "box.png",
         "qty": 0
       },
       {
         "id": 2,
         "name": "Food Can",
-        "categories": ["Food", "Cooking"],
+        "categories": ["Food"],
         "image": "can food.png",
         "qty": 0
       },
@@ -25,31 +25,31 @@ export default {
       {
         "id": 4,
         "name": "Coffee Cup",
-        "categories": ["Drinks", "Takeaway"],
+        "categories": ["Takeaway"],
         "image": "coffee.png"
       },
       {
         "id": 5,
         "name": "Crisps Bag",
-        "categories": ["Food", "Takeaway"],
+        "categories": ["Food"],
         "image": "crisps.png"
       },
       {
         "id": 6,
         "name": "Plastic Cutlery",
-        "categories": ["Food", "Takeaway"],
+        "categories": ["Takeaway"],
         "image": "cutlery.png"
       },
       {
         "id": 7,
         "name": "Soft Drink Can",
-        "categories": ["Drinks", "Takeaway"],
+        "categories": ["Drink", "Takeaway"],
         "image": "soft drink.png"
       },
       {
         "id": 8,
         "name": "Plastic Bottle",
-        "categories": ["Drinks", "Takeaway"],
+        "categories": ["Drink"],
         "image": "plastic-bottle.png"  
       },
       {
@@ -61,13 +61,13 @@ export default {
       { 
         "id": 10,
         "name": "Glass Bottle",
-        "categories": ["Drinks"],
+        "categories": ["Drink"],
         "image": "glass-bottle.png"
       },
       {
         "id": 11,
         "name": "Food Takeaway",
-        "categories": ["Food", "Takeaway"],
+        "categories": ["Takeaway"],
         "image": "food-takeaway.png"
       },
       {
@@ -79,7 +79,7 @@ export default {
       {
         "id": 13,
         "name": "Plastic Straw",
-        "categories": ["Drink", "Takeaway"],
+        "categories": ["Takeaway"],
         "image": "plastic-straw.png"
       },
       {
