@@ -4,7 +4,6 @@ import moment from "moment";
 import "/Users/Roger/fullstack-go/node_modules/react-big-calendar/lib/css/react-big-calendar.css";
 
 import "/Users/Roger/fullstack-go/src/public/js/style.css";
-import { SSL_OP_LEGACY_SERVER_CONNECT } from "constants";
 
 Calendar.setLocalizer(Calendar.momentLocalizer(moment));
 
@@ -38,22 +37,15 @@ export default class CalendarComponent extends Component {
 
   componentDidMount(){
 
-
     fetch('/api/itemsSelected')
     .then(res => res.json())
     .then(data => {
 
-      console.log("data ",data);
-
-      let newList = this.updateStateEvents(data);
-      
-      this.setState({events: newList});
+      let events = this.updateStateEvents(data);
+      this.setState({events});
 
       console.log("events ",this.state.events);
-      
-
     });
-
   }
 
   render() {

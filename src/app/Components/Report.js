@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Doughnut from "./DoughnutChart";
 import Line from "./LineChart";
+import Highlight from "./Data-Highlight";
 
 const fakeRegoDate = new Date("2018-08-02T08:59:50.337Z");
 
@@ -248,10 +249,8 @@ export default class Report extends Component {
                 <div className="row">
                 <h5>Highlights of your activity</h5>
 
-                <div className="col s12 m6 l3">
-                <h5> <strong>{this.state.totalNumItems}</strong> </h5>
-                <span>Items you used since your started.</span>
-                </div>
+
+                <Highlight title={this.state.totalNumItems} text="Items you used since your started." />
 
                 <div className="col s12 m6 l3">
                 <h5> <strong>{ this.state.mostCommonItem }</strong> </h5>

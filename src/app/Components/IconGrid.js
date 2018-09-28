@@ -26,7 +26,7 @@ export default class IconGrid extends Component {
         <div className="icon-container" >
 
         { this.props.isItemSelected ? (  
-              <div onClick={this.updateQuantity} className='col s4 selectedItem card'>
+              <div onClick={this.updateQuantity} className='col s4 card hoverable selectedItem'>
               
                   <Image path={this.props.path} />
 
@@ -36,7 +36,7 @@ export default class IconGrid extends Component {
           ) :
               <Modal addQuantity={this.updateQuantity} trigger= {
 
-                  <div className='col s4 card'>
+                  <div className='col s4 card hoverable'>
 
                   <Image path={this.props.path} />
 
