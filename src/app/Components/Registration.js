@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import H5 from "./H5"
 
 export default class Registration extends Component {
 
@@ -48,33 +49,41 @@ export default class Registration extends Component {
 
     render () {
         return (
-          <div>
-            <div className="container">
-              <div className="row">
-                <div className="col s5">
-                  <div className="card">
-                    <div className="card-content">
-                      <form onSubmit={this.addTask}>
-                        <div className="row">
-                          <div className="input-field col s12">
-                            <input name="username" value={this.state.username} onChange={this.handleChange} type="text" autoFocus/>
-                          </div>
-                        </div>
-                        <div className="row">
-                          <div className="input-field col s12">
-                            <input name="password" value={this.state.password} onChange={this.handleChange} type="text" autoFocus/>
-                          </div>
-                        </div>
-                        <button type="submit" className="btn light-blue darken-4">
-                          Register 
-                        </button>
-                      </form>
+
+          
+
+                <div className="col s12 m4 l3">
+
+                    <div className="row">
+                      <H5 title="Sign up" />
                     </div>
+
+                  <div className="row">
+
+                          <form onSubmit={this.addTask}>
+
+                            <div className="row">
+                              <div className="input-field col s12">
+                                <input name="username" value={this.state.username} onChange={this.handleChange} type="text" autoFocus/>
+                              </div>
+                            </div>
+
+                            <div className="row">
+                              <div className="input-field col s12">
+                                <input name="password" value={this.state.password} onChange={this.handleChange} type="text" autoFocus/>
+                              </div>
+                            </div>
+
+                            <div className="row">
+                              <button type="submit" className="btn light-blue darken-4">
+                                Register 
+                              </button>
+                            </div>
+
+                          </form>
+                        </div>                    
                   </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          
             )
         }
 }
