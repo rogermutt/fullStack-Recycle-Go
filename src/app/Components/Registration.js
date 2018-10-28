@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import H5 from "./H5"
+import { Redirect } from 'react-router-dom'
 
 export default class Registration extends Component {
 
@@ -8,11 +9,12 @@ export default class Registration extends Component {
 
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      hasRegistered: false
     };
 
     this.handleChange = this.handleChange.bind(this);
-    this.addTask = this.addTask.bind(this);
+    this.onSubmission = this.onSubmission.bind(this);
   }
 
   handleChange(e) {
@@ -22,68 +24,72 @@ export default class Registration extends Component {
     });
   }
 
-  addTask(e) {
+  onSubmission(e) {
     e.preventDefault();
 
-    console.log("Before ", this.state);
-    
-      fetch('/api/regoRouting', {
-        method: 'POST',
-        body: JSON.stringify(this.state),
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        }
-      })
-        .then(res => res.json())
-        .then(data => {
-          console.log(data);
-          window.M.toast({html: 'Account Saved'});
-          this.setState({
-            email: "",
-            password: "" 
-          }); 
-        })
-        .catch(err => console.error(err));
+    this.setState({
+      hasRegistered: true
+    }, () => {
+      console.log("After ", this.state);
+    });
+
+    // fetch('/api/regoRouting', {
+    //   method: 'POST',
+    //   body: JSON.stringify(this.state),
+    //   headers: {
+    //     'Accept': 'application/json',
+    //     'Content-Type': 'application/json'
+    //   }
+    // })
+    //   .then(res => res.json())
+    //   .then(data => {
+    //     console.log(data);
+    //     window.M.toast({html: 'Account Saved'});
+    //     this.setState({
+    //       email: "",
+    //       password: "" 
+    //     }); 
+    //   })
+    //   .catch(err => console.error(err));
   }
 
-    render () {
-        return (
+  render() {
 
-          
+    if (this.state.hasRegistered === true) {
+      return <Redirect to='/landing' />
+    }
+    
+    return (
+      <React.Fragment>
+        <div className="col s12 m4 l3">
 
-                <div className="col s12 m4 l3">
+          <div className="row">
+            <H5 title="Sign up" />
+          </div>
 
-                    <div className="row">
-                      <H5 title="Sign up" />
-                    </div>
+          <div className="row">
 
-                  <div className="row">
+            <form onSubmit={this.onSubmission}>
 
-                          <form onSubmit={this.addTask}>
+              <div className="row">
+                <div className="input-field col s12">
+                  <input name="username" value={this.state.username} onChange={this.handleChange} type="text" autoFocus />
+                </div>
+              </div>
 
-                            <div className="row">
-                              <div className="input-field col s12">
-                                <input name="username" value={this.state.username} onChange={this.handleChange} type="text" autoFocus/>
-                              </div>
-                            </div>
+              <div className="row">
+                <div className="input-field col s12">
+                  <input name="password" value={this.state.password} onChange={this.handleChange} type="text" autoFocus />
+                </div>
+              </div>
 
-                            <div className="row">
-                              <div className="input-field col s12">
-                                <input name="password" value={this.state.password} onChange={this.handleChange} type="text" autoFocus/>
-                              </div>
-                            </div>
+              <input type="submit" value="Submit" />
 
-                            <div className="row">
-                              <button type="submit" className="btn light-blue darken-4">
-                                Register 
-                              </button>
-                            </div>
+            </form>
+          </div>
+        </div>
 
-                          </form>
-                        </div>                    
-                  </div>
-          
-            )
-        }
+      </React.Fragment>
+    )
+  }
 }

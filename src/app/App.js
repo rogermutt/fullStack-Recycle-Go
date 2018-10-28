@@ -7,13 +7,9 @@ class App extends Component {
     render () {
         return (    
             <React.Fragment>
-
-             <Nav/>
-                
-             <ReactRouter/>
-
-            <Footer/>  
-
+                <Nav/>
+                <ReactRouter/>
+                <Footer/>  
             </React.Fragment>    
             )
         }
