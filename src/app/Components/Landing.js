@@ -86,7 +86,9 @@ export default class Landing extends Component {
     }
 
     render () {
+
         return (
+
           <React.Fragment>
 
             <OceanSVG itemsSelected={this.state.itemsSelected} />

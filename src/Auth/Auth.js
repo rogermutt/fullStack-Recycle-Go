@@ -1,4 +1,5 @@
 import auth0 from 'auth0-js';
+import { log } from 'util';
 
 const REDIRECT = 'http://localhost:3000/?/callback';
 const SCOPE = 'openid profile';
@@ -21,9 +22,10 @@ class Auth {
     this.isAuthenticated = this.isAuthenticated.bind(this);
     this.signIn = this.signIn.bind(this);
     this.signOut = this.signOut.bind(this);
+    this.getAccessToken = this.getAccessToken.bind(this);
   }
 
-  getProfile() {
+  getProfile() {  
     return this.profile;
   }
 
@@ -47,12 +49,19 @@ class Auth {
     })
   }
 
+  getAccessToken() {
+    const accessToken = localStorage.getItem('access_token');
+    if (!accessToken) {
+      throw new Error('No Access Token found');
+    }
+    return accessToken;
+  }  
+
   isAuthenticated() {
     return new Date().getTime() < this.expiresAt;
   }
 
   signIn() {
-    console.log(window.location);
     this.auth0.authorize();
   }
 

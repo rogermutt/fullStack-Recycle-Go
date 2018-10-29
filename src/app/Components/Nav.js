@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 //  Add materialize Tabs animation
 export default class Footer extends Component {
   render () {
+               
       return (
           <React.Fragment>
           <div className="navbar-fixed">
@@ -13,6 +14,7 @@ export default class Footer extends Component {
                   <a href="#" data-target="mobile-demo" className="sidenav-trigger"><i className="material-icons">menu</i></a>
                   
                   <ul id="nav-mobile" className="right hide-on-med-and-down">
+                    <li><strong>bob@bob.com</strong></li>
                     <li><Link to="/authorize">Login</Link></li>
                     <li><Link to="/">Landing</Link></li>
                     <li><Link to="/reports">Reports</Link></li>
