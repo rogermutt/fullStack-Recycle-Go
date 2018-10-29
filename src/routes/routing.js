@@ -9,7 +9,7 @@ router.get("/", async (req, res)=> {
 
 router.post('/', async (req, res) => {
 
-    console.log("Router receives: ",req.body.itemsSelected);
+    console.log("Router receives: ", req.body.itemsSelected);
 
     var date = new Date();
     

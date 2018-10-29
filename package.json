@@ -13,7 +13,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "auth0-js": "^9.8.1",
     "bcrypt": "^3.0.0",
+    "body-parser": "^1.18.3",
     "chart.js": "^2.7.2",
     "express": "^4.16.3",
     "materialize-css": "^1.0.0-rc.2",

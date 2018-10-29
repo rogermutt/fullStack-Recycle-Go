@@ -58,7 +58,7 @@ export default class Registration extends Component {
     if (this.state.hasRegistered === true) {
       return <Redirect to='/landing' />
     }
-    
+
     return (
       <React.Fragment>
         <div className="col s12 m4 l3">
